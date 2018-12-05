@@ -1006,10 +1006,10 @@
 				withCredentials: false,
 			},
 			language: {
-				code: 'en',
-				culture: 'en_US',
-				iso: 'ENU',
-				name: 'English',
+				code: 'it',
+				culture: 'it_IT',
+				iso: 'ITA',
+				name: 'Italiano',
 			},
 			location: {
 				hash: '!',
@@ -1092,8 +1092,8 @@
 
 		environmentProvider.add('production', {
 			paths: {
-				api: 'https://actarian.github.io/artisan/api',
-				app: 'https://actarian.github.io/artisan',
+				api: 'https://actarian.github.io/scavolini-reserve/api',
+				app: 'https://actarian.github.io/scavolini-reserve',
 			},
 			plugins: {
 				facebook: {
