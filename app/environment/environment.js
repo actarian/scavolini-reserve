@@ -13,10 +13,10 @@
 				withCredentials: false,
 			},
 			language: {
-				code: 'en',
-				culture: 'en_US',
-				iso: 'ENU',
-				name: 'English',
+				code: 'it',
+				culture: 'it_IT',
+				iso: 'ITA',
+				name: 'Italiano',
 			},
 			location: {
 				hash: '!',

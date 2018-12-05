@@ -9,8 +9,8 @@
 
 		environmentProvider.add('production', {
 			paths: {
-				api: 'https://actarian.github.io/artisan/api',
-				app: 'https://actarian.github.io/artisan',
+				api: 'https://actarian.github.io/scavolini-reserve/api',
+				app: 'https://actarian.github.io/scavolini-reserve',
 			},
 			plugins: {
 				facebook: {
