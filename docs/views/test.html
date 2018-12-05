@@ -1,0 +1,373 @@
+<json-formatter json="sources"></json-formatter>
+
+<div popuppable="[calendar-popup]">
+	<button class="btn popuppable-trigger" type="button">popup</button>
+	<div calendar-popup></div>
+	<!--
+    <div class="popup">
+        popup
+    </div>
+    -->
+</div>
+
+<!--
+<p ng-click="popup = true">
+    <span date-relative="sources.day.from"></span>
+    <span ng-bind="sources.day.from | dateRelative"></span>
+</p>
+-->
+
+<!--
+<div calendar-popup ng-show="popup"></div>
+-->
+
+<!--
+<div calendar-popup-records calendar-user="user" ng-model="sources.date" ng-show="popup"></div>
+-->
+
+<div ng-repeat="item in sources.todos track by $index">
+	<div todo-item="item" target=".player-item" template="partials/todo/item">-</div>
+</div>
+
+<style>
+	.popuppable-target .calendar-popup {
+        position: relative;
+    }
+
+    .popup {
+        width: 240px;
+        height: 240px;
+        background: grey;
+    }
+
+    .flex-row {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        font-family: monospace;
+        font-size: .8em;
+    }
+
+    .flex-row>div {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 160px;
+        margin-bottom: 10px;
+        border: 1px solid grey;
+        height: 40px;
+        border-radius: 5px;
+        margin: 5px;
+    }
+
+    .player-item {
+        background: #f0f0f0;
+        cursor: pointer;
+    }
+
+    .player-item svg {
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        left: 10px;
+    }
+
+    .player-item svg .track {
+        stroke: #bbbbbb;
+    }
+
+    .player-item svg .progress {
+        stroke: blue;
+    }
+
+    .player-item .elapsed {
+        text-align: center;
+    }
+</style>
+
+<!-- WEEK TODO ITEM -->
+<script type="text/ng-template" id="partials/todo/item">
+	<div class="flex-row">
+        <div>
+            <span ng-bind="item.key"></span>
+        </div>
+        <div class="player-item" ng-class="{ 'playing': item.player.playing }">
+            <svg id="svg" width="100%" height="100%" viewport="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                <circle class="track" r="40%" cx="50%" cy="50%" fill="transparent" stroke-linecap="round"></circle>
+                <circle class="progress" r="40%" cx="50%" cy="50%" fill="transparent" stroke-linecap="round"></circle>
+            </svg>
+            <span class="elapsed"></span>
+        </div>
+        <div>
+            <span ng-bind="item.player.accumulatedTime | customDigitalTime"></span>
+        </div>
+        <div>
+            <span ng-bind="item.player.elapsedTime | customDigitalTime"></span>
+        </div>
+        <div>
+            <span ng-bind="item.player.startTime | date : 'HH:mm:ss dd/MM'"></span>
+        </div>
+        <div>
+            <span ng-bind="item.player.totalTime | customHours"></span>
+        </div>
+        <div>
+            <span ng-bind="item.recordedHours | customNumber : 2 : ' H'"></span>
+        </div>
+        <div>
+            <span ng-bind="item.hours | customNumber : 2 : ' H'"></span>
+        </div>
+    </div>
+    <!--
+    <div class="infos">
+        <div class="task" link-to="links.task(item.task.id)" ng-if="item.task"><span class="id" ng-bind="item.task.id"></span> <b class="name" ng-bind="item.task.name"></b></div>
+        <div class="activity" link-to="links.activity(item.activity.id)"><span class="id" ng-bind="item.activity.id"></span> <b class="name" ng-bind="item.activity.name"></b></div>
+        <p>
+            <span class="tag tag-link" link-to="links.customer(item.customer.id)" ng-bind="item.customer.name + ' ' + item.customer.id"></span>
+            <span class="tag tag-link" link-to="links.project(item.project.id)" ng-bind="item.project.name + ' ' + item.project.id"></span>
+        </p>
+        <ul class="list-group">
+            <li class="list-group-item justify-content-between">
+                Ore lavorate in week <span ng-bind="item.days[0].date | isoWeek : 1">-</span>
+                <span class="tag tag-pill pull-xs-right">
+                    <span ng-bind="item.recordedHours | customNumber : 2 : ' H'">-</span> / <span ng-bind="item.hours | customNumber : 2 : ' H'">-</span>
+                </span>
+            </li>
+        </ul>
+    </div>
+    <div class="hours" ng-class="{ exceed: item.recordedHours > item.hours }">
+        <div class="progress" ng-style="{ 'transform': 'scaleX(' + item.percentualHours + ')' }"></div>
+        <div class="slot">
+            <span class="name exceeding" ng-bind="item.recordedHours | customHours"></span> <span class="name" ng-bind="item.hours | customHours"></span> <i class="icon-lock" ng-if="item.locked"></i>
+        </div>
+    </div>
+    <div class="ctas">
+        <button type="button" class="btn btn-xs btn-primary" ng-click="doAddRecord(item)" ng-disabled="sources.currentWeek.isBefore(sources.day.from)">Contabilizza</button>
+    </div>
+    -->
+</script>
+
+
+<!-- MODAL EDIT ROW -->
+<script type="text/ng-template" id="partials/modals/todo-record">
+	<div class="modal-header">
+        <button type="button" class="btn close" data-dismiss="modal" aria-label="Chiudi" ng-click="modal.reject()">
+            <i class="icon-close" aria-hidden="true"></i>
+        </button>
+        <h4 class="modal-title" ng-bind="modal.title"></h4>
+    </div>
+    <form name="form" role="form" class="clearfix" novalidate ng-submit="form.$valid && submit()">
+        <div class="modal-body">
+            <h6 class="headline foreground light-60 status-light-blue">
+                <span class="tag tag-link" ng-bind="row.record.id">-</span> <span ng-bind="row.record.name"></span>
+            </h6>
+            <div class="todo-list">
+                <div class="todo-row" ng-class="getStatusColor(row)">
+                    <div class="todo-item">
+                        <div class="infos">
+                            <b class="name">
+                                <span class="task" ng-if="row.task">
+                                    <span class="id tag tag-pill status-red" ng-bind="row.task.id"></span> <span ng-bind="row.task.name"></span>
+                                </span>
+                                <span class="activity">
+                                    <span ng-bind="row.activity.name"></span>
+                                </span>
+                            </b>
+                            <p>
+                                <span class="tag tag-pill text-overflow">
+                                    <span ng-bind="row.customer.name"></span> – <span ng-bind="row.project.name"></span>
+                                </span>
+                            </p>
+                            <ul class="list-group">
+                                <li class="list-group-item justify-content-between">
+                                    Ore lavorate / budget
+                                    <span class="tag tag-pill pull-xs-right">
+                                        <span ng-bind="row.activity.recordedHours | customNumber : 2 : ' H'">-</span> / <span ng-bind="row.activity.budgetHours | customNumber : 2 : ' H'">-</span>
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row" ng-class="{
+             'control-focus': form.RecordData.hasFocus,
+             'control-success': form.RecordData.$valid,
+             'control-error': form.RecordData.$invalid && (form.$submitted || form.RecordData.$touched),
+             'control-empty': !form.RecordData.$viewValue }">
+                    <label for="Data" class="col-lg-3 col-form-label">Data<sup>✽</sup></label>
+                    <div class="col-lg-9 col-text" ng-click="popup = true" on-click-out="popup = false">
+                        <input name="Data" ng-model="model.record.date" placeholder="seleziona una data" type="hidden" required>
+                        <span class="form-control" ng-focus="form.RecordData.hasFocus = true" ng-blur="form.RecordData.hasFocus = false" ng-click="sources.dateOpen = true">
+                            <span ng-bind="model.record.date || 'seleziona' | date : 'dd-MM-yyyy'"></span> <i class="icon-calendar pull-right"></i>
+                        </span>
+                        <div calendar-popup calendar-user="user" ng-model="model.record.date" ng-show="popup"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" form="form" control-row="select" title="Ore" placeholder="seleziona un'ora" model="model.record.hours" source="sources.hours" number="true" required="true"></div>
+            <div class="form-group" form="form" control-row="select" title="Attività" placeholder="seleziona un'attività" model="model.activity" source="sources.activities" required="true"></div>
+            <div expandable=".form-control" expandable-relative="{ top: -5, bottom: 5 }" expandable-absolute="{ left: 50, right: 50 }">
+                <div class="form-group" form="form" control-row="text" title="Descrizione" placeholder="inserisci la descrizione" model="model.record.name" required="true"></div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <span class="pull-lg-left">
+                <button type="button" class="btn btn-sm btn-warning" data-dismiss="modal" ng-click="modal.reject()">Annulla</button>
+            </span>
+            <span class="pull-lg-right">
+                <button type="submit" class="btn btn-sm btn-danger" ng-disabled="form.$invalid">Modifica</button>
+            </span>
+        </div>
+    </form>
+</script>
+
+<!-- CALENDAR POPUP -->
+<script type="text/ng-template" id="partials/calendar/popup">
+	<div class="calendar-popup-container">
+        <div class="calendar calendar-popup">
+            <div class="month">
+                <h6 class="flex-row">
+                    <span class="w100">
+                        <button type="button" class="btn btn-xs btn-primary" ng-click="doNavMonth(-1)">
+                            <i class="icon-prev"></i> <span><i class="icon-prev"></i></span>
+                    </button>
+                    </span>
+                    <span class="wmax text-center">
+                        <b ng-bind="sources.month.getName()"></b>
+                    </span>
+                    <span class="w100 text-right">
+                        <button type="button" class="btn btn-xs btn-primary" ng-click="doNavMonth(1)">
+                            <i class="icon-next"></i> <span><i class="icon-next"></i></span>
+                    </button>
+                    </span>
+                </h6>
+                <ul class="nav">
+                    <li class="week">
+                        <span class="cell">week</span>
+                        <span class="cell">lun</span>
+                        <span class="cell">mar</span>
+                        <span class="cell">mer</span>
+                        <span class="cell">gio</span>
+                        <span class="cell">ven</span>
+                        <span class="cell">sab</span>
+                        <span class="cell">dom</span>
+                    </li>
+                    <li class="week" ng-repeat="week in sources.calendarMonth.weeks track by $index">
+                        <div class="cell weekNum" ng-click="onWeekSelect(week.date)">
+                            <span class="num" ng-bind="week.date | isoWeek : 1"></span>
+                        </div>
+                        <div class="cell" ng-class="getDayClasses(day)" ng-click="onDaySelect(day)" ng-repeat="day in week.days track by $index">
+                            <span class="num" ng-bind="day.d"></span>
+                            <span class="hours" ng-bind="day.hours" ng-if="day.hours"></span>
+                            <div class="records" ng-if="day.wasWorkable" title="{{day.recordedHours | customNumber : 2 : 'H'}}">
+                                <span ng-bind="day.recordedHours | customNumber : 2 : 'H'"></span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</script>
+
+<!-- CALENDAR POPUP WORKABLES -->
+<script type="text/ng-template" id="partials/calendar/popup/workables">
+	<div class="calendar-popup-container">
+        <div class="calendar calendar-popup">
+            <div class="month">
+                <h6 class="flex-row">
+                    <button type="button" class="btn btn-xs btn-default" ng-click="doNavMonth(-1)">
+                        <i class="icon-prev"></i> <span><i class="icon-prev"></i></span>
+                    </button>
+                    <span class="wmax text-center">
+                        <b ng-bind="sources.month.getName()"></b>
+                    </span>
+                    <button type="button" class="btn btn-xs btn-default" ng-click="doNavMonth(1)">
+                        <i class="icon-next"></i> <span><i class="icon-next"></i></span>
+                    </button>
+                </h6>
+                <ul class="nav">
+                    <li class="week">
+                        <span class="cell">&nbsp;</span>
+                        <span class="cell">L</span>
+                        <span class="cell">M</span>
+                        <span class="cell">M</span>
+                        <span class="cell">G</span>
+                        <span class="cell">V</span>
+                        <span class="cell">S</span>
+                        <span class="cell">D</span>
+                    </li>
+                    <li class="week" ng-repeat="week in sources.calendarMonth.weeks track by $index">
+                        <div class="cell weekNum" ng-click="onWeekSelect(week.date)">
+                            <span ng-bind="week.date | isoWeek : 1"></span>
+                        </div>
+                        <div class="cell" ng-class="getDayClasses(day)" ng-click="onDaySelect(day)" ng-repeat="day in week.days track by $index">
+                            <span ng-bind="day.d"></span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</script>
+
+<!-- TODO CALENDAR -->
+<script type="text/ng-template" id="partials/todo/calendar">
+	<section class="container-fluid shadow section-bordered">
+        <div class="calendar calendar-planner">
+            <div class="month">
+                <h6 class="flex-row">
+                    <span class="w100">
+                        <button type="button" class="btn btn-xs btn-primary" ng-click="doNavMonth(-1)">
+                            <i class="icon-prev"></i> <span><i class="icon-prev"></i> <span ng-bind="sources.month.getDiff(-1).getShortName()"></span></span>
+                    </button>
+                    </span>
+                    <span class="wmax text-center">
+                        <b ng-bind="sources.month.getName()"></b>
+                    </span>
+                    <span class="w100 text-right">
+                        <button type="button" class="btn btn-xs btn-primary" ng-click="doNavMonth(1)">
+                            <i class="icon-next"></i> <span><span ng-bind="sources.month.getDiff(1).getShortName()"></span> <i class="icon-next"></i></span>
+                    </button>
+                    </span>
+                </h6>
+                <ul class="nav">
+                    <li class="week">
+                        <span class="cell">week</span>
+                        <span class="cell">lun</span>
+                        <span class="cell">mar</span>
+                        <span class="cell">mer</span>
+                        <span class="cell">gio</span>
+                        <span class="cell">ven</span>
+                        <span class="cell">sab</span>
+                        <span class="cell">dom</span>
+                    </li>
+                    <li class="week" ng-repeat="week in sources.calendar.month.weeks track by $index">
+                        <div class="cell weekNum" ng-click="onWeekSelect(week.date)">
+                            <span class="num" ng-bind="week.date | isoWeek : 1"></span>
+                        </div>
+                        <div class="cell" ng-class="{ selected: day && sources.day.isCurrent(day.date), day: day, workable: day.workable, holiday: day.holiday, vacation: day.vacation, working: day.working, available: day.available, full: day.full, today: day.$today }" ng-click="onDaySelect(day)"
+                            ng-repeat="day in week.days track by $index">
+                            <span class="num" ng-bind="day.d"></span>
+                            <span class="hours" ng-bind="day.hours" ng-if="day.hours"></span>
+                            <div class="activities" ng-if="day.workable">
+                                <span class="activity tag-pill" ng-class="appearance.activityClass(activity.activity.id)" ng-repeat="activity in day.activities track by $index" ng-style="{ 'flex-basis': (activity.hours / day.availableHours * 100) + '%', 'max-width': (activity.hours / day.availableHours * 100) + '%' }"
+                                    title="{{(activity.hours | customNumber : 2 : 'H ' + activity.task.id) + ' ' + activity.customer.name}}">
+                                    <span ng-bind="activity.customer.name"></span>
+                                </span>
+                            </div>
+                            <div class="records" ng-if="day.wasWorkable">
+                                <span class="record tag-pill" ng-class="{ 'status-green': day.recordedHours >= day.availableHours, 'status-orange': day.recordedHours < day.availableHours }" ng-style="{ 'flex-basis': (day.recordedHours / day.availableHours * 100) + '%', 'max-width': (day.recordedHours / day.availableHours * 100) + '%' }"
+                                    title="{{day.recordedHours | customNumber : 2 : 'H'}}">
+                                    <span ng-bind="day.recordedHours"></span> / <span ng-bind="day.availableHours"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+</script>
