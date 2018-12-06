@@ -27,10 +27,10 @@
   --light: #e6e6e6;
   --dark: #343a40;
   --breakpoint-xs: 0;
-  --breakpoint-sm: 576px;
-  --breakpoint-md: 768px;
-  --breakpoint-lg: 992px;
-  --breakpoint-xl: 1200px;
+  --breakpoint-sm: 768px;
+  --breakpoint-md: 1024px;
+  --breakpoint-lg: 1200px;
+  --breakpoint-xl: 1440px;
   --font-family-sans-serif: "Circular Std", sans-serif;
   --font-family-monospace: "Circular Std", monospace; }
 
@@ -455,16 +455,16 @@ pre {
   padding-left: 20px;
   margin-right: auto;
   margin-left: auto; }
-  @media (min-width: 576px) {
-    .container {
-      max-width: 540px; } }
   @media (min-width: 768px) {
     .container {
+      max-width: 540px; } }
+  @media (min-width: 1024px) {
+    .container {
       max-width: 720px; } }
-  @media (min-width: 992px) {
+  @media (min-width: 1200px) {
     .container {
       max-width: 960px; } }
-  @media (min-width: 1200px) {
+  @media (min-width: 1440px) {
     .container {
       max-width: 1140px; } }
 
@@ -699,7 +699,7 @@ pre {
 .offset-11 {
   margin-left: 91.66667%; }
 
-@media (min-width: 576px) {
+@media (min-width: 768px) {
   .col-sm {
     -ms-flex-preferred-size: 0;
         flex-basis: 0;
@@ -858,7 +858,7 @@ pre {
   .offset-sm-11 {
     margin-left: 91.66667%; } }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .col-md {
     -ms-flex-preferred-size: 0;
         flex-basis: 0;
@@ -1017,7 +1017,7 @@ pre {
   .offset-md-11 {
     margin-left: 91.66667%; } }
 
-@media (min-width: 992px) {
+@media (min-width: 1200px) {
   .col-lg {
     -ms-flex-preferred-size: 0;
         flex-basis: 0;
@@ -1176,7 +1176,7 @@ pre {
   .offset-lg-11 {
     margin-left: 91.66667%; } }
 
-@media (min-width: 1200px) {
+@media (min-width: 1440px) {
   .col-xl {
     -ms-flex-preferred-size: 0;
         flex-basis: 0;
@@ -1395,9 +1395,9 @@ pre {
   @page {
     size: a3; }
   body {
-    min-width: 992px !important; }
+    min-width: 1200px !important; }
   .container {
-    min-width: 992px !important; }
+    min-width: 1200px !important; }
   .navbar {
     display: none; }
   .badge {

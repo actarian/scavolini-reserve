@@ -1569,7 +1569,7 @@ Scrollbar
       opacity: 1; }
   .modal form {
     margin: 0; }
-  @media (max-width: 767.98px) {
+  @media (max-width: 1023.98px) {
     .modal {
       -webkit-box-align: start;
           -ms-flex-align: start;
@@ -1583,7 +1583,7 @@ Scrollbar
         min-height: 100vh;
         -webkit-box-shadow: none;
                 box-shadow: none; } }
-  @media (min-width: 768px) {
+  @media (min-width: 1024px) {
     .modal .section-booking .left,
     .modal .section-cart .left {
       min-height: calc(100vh - 40px); }
@@ -1618,7 +1618,7 @@ a:focus {
   -webkit-transition: none;
   transition: none; }
 
-@media (max-width: 767.98px) {
+@media (max-width: 1023.98px) {
   .nav {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
@@ -1642,7 +1642,7 @@ a:focus {
         max-height: 600px;
         overflow: visible; } }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .nav {
     -webkit-box-align: center;
         -ms-flex-align: center;
@@ -1683,7 +1683,7 @@ a:focus {
   .nav-0 .active > .nav-link {
     background: #007bff;
     color: #ffffff; }
-  @media (max-width: 767.98px) {
+  @media (max-width: 1023.98px) {
     .nav-0 > .nav-item + .nav-item {
       border-top: 1px solid #aaaaff; } }
 
@@ -1699,7 +1699,7 @@ a:focus {
   background: #eeeeff;
   color: #007bff; }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .nav-1 {
     border: 1px solid #007bff;
     -webkit-box-shadow: 0 10px 10px -5px rgba(0, 0, 0, 0.2);
@@ -1718,7 +1718,7 @@ a:focus {
   background: #007bff;
   color: #ffffff; }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .nav-2 {
     border: 1px solid #007bff;
     -webkit-box-shadow: 0 10px 10px -5px rgba(0, 0, 0, 0.2);
@@ -2503,6 +2503,6 @@ Scrollbar
     opacity: 0; }
   .playing > .video-item:after {
     opacity: 0; }
-  @media (max-width: 767.98px) {
+  @media (max-width: 1023.98px) {
     .video-item {
       margin-bottom: 15px; } }

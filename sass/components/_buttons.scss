@@ -90,6 +90,12 @@ button,
 	&:disabled {
 		background: #707070;
 	}
+
+	@include media-breakpoint-down(lg) {
+		display: block;
+		width: 100%;
+	}
+
 }
 
 .btn-cancel {

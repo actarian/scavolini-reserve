@@ -16,13 +16,31 @@ $padding: calc((100% - 240px) / 9 + 30px);
 		padding-left: $padding;
 		padding-right: $padding;
 	}
+
+	@include media-breakpoint-down(lg) {
+
+		.form-headline {
+			padding-left: 0;
+			padding-right: 0;
+		}
+
+		.form-action {
+			padding-left: 0;
+			padding-right: 0;
+		}
+	}
+
 }
 
 .planner {
+	max-width: calc(100vw - 30px);
+	overflow-y: hidden;
+	overflow-x: auto;
 
 	.week {
 		display: block;
 		width: 100%;
+		min-width: 1200px;
 
 		&>.week-row {
 			display: flex;

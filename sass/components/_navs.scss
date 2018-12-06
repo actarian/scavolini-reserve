@@ -43,6 +43,7 @@
 		flex: 1 0 calc(100% - 70px);
 		text-overflow: ellipsis;
 		overflow: hidden;
+		white-space: nowrap;
 	}
 
 	.radio {

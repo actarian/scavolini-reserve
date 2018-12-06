@@ -1,12 +1,12 @@
 <section class="section section-reserve">
 	<div class="container">
 		<div class="row">
-			<div class="col-md-6">
+			<div class="col-lg-6">
 				<div class="picture">
 					<img src="img/assistant.jpg" alt="" />
 				</div>
 			</div>
-			<div class="col-md-6" ng-if="state.isReady && !store">
+			<div class="col-lg-6" ng-if="state.isReady && !store">
 				<div class="form-headline">
 					<div class="h1">Prenota un appuntamento</div>
 				</div>
@@ -14,7 +14,7 @@
 					<div class="info">Non hai selezionato lo store.</div>
 				</div>
 			</div>
-			<div class="col-md-6" ng-if="state.isReady && store">
+			<div class="col-lg-6" ng-if="state.isReady && store">
 				<form name="view.form" role="form" novalidate autocomplete="off" ng-submit="view.form.$valid && onSubmit()" ng-keyup="$event.keyCode == 13 && view.form.$valid && onSubmit()">
 					<div class="form-headline">
 						<div class="h1">Prenota un appuntamento</div>

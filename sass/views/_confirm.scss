@@ -32,6 +32,20 @@
 			position: relative;
 			z-index: 1;
 		}
+
+
+		@include media-breakpoint-down(lg) {
+
+			background: #e6e6e6;
+			margin-top: 40px;
+			padding-bottom: 40px;
+
+			&:before,
+			&:after {
+				display: none;
+			}
+
+		}
 	}
 
 }

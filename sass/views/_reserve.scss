@@ -1,3 +1,8 @@
+@import "bootstrap/scss/functions";
+@import "colors";
+@import "variables";
+@import "bootstrap/scss/mixins";
+
 .section-reserve {
 	.row {
 		align-items: flex-end;
@@ -5,5 +10,17 @@
 
 	.picture {
 		margin-top: -20px;
+		text-align: center;
+
+		img {
+			max-width: 100%;
+		}
 	}
+
+	@include media-breakpoint-down(lg) {
+		.picture {
+			margin: 40px 0;
+		}
+	}
+
 }

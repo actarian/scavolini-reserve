@@ -9,6 +9,7 @@
 	align-items: flex-end;
 	min-height: 60px;
 	margin-bottom: 40px;
+	max-width: calc(100vw - 30px);
 
 	&:first-child {
 		min-width: calc(100% - 110px);
@@ -24,6 +25,7 @@
 
 .form-group {
 	min-height: 68px;
+	max-width: calc(100vw - 30px);
 
 	label {
 		display: block;
@@ -74,6 +76,7 @@
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
+		white-space: nowrap;
 		display: inline-block;
 
 		&.title-empty {
@@ -95,6 +98,7 @@
 	justify-content: space-between;
 	align-items: center;
 	border-bottom: 1px solid #d6d6d6;
+	max-width: calc(100vw - 30px);
 
 	label {
 		font-size: 13px;
@@ -120,6 +124,7 @@
 	justify-content: space-between;
 	align-items: center;
 	border-bottom: 1px solid #d6d6d6;
+	max-width: calc(100vw - 30px);
 
 	label {
 		min-width: 110px;
@@ -140,6 +145,7 @@
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
+	max-width: calc(100vw - 30px);
 }
 
 .form-body {
@@ -149,10 +155,12 @@
 	overflow-x: hidden;
 	margin-right: -15px;
 	padding-right: 15px;
+	max-width: calc(100vw - 30px);
 }
 
 .form-action {
 	padding-top: 80px;
+	max-width: calc(100vw - 30px);
 
 	&:not(.form-action-inline) {
 		.btn+.btn {
@@ -164,6 +172,15 @@
 .form-action-inline {
 	display: flex;
 	justify-content: space-between;
+	max-width: calc(100vw - 30px);
+
+	@include media-breakpoint-down(lg) {
+		display: block;
+
+		.btn+.btn {
+			margin-top: 15px;
+		}
+	}
 }
 
 /*
