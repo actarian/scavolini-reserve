@@ -43,9 +43,9 @@
 					<div ng-bind="daytime.name"></div>
 					<div ng-bind="daytime.description"></div>
 				</div>
-				<div class="cell" ng-class="getDayClasses(day, day.daytimes[daytime.id])" ng-click="onDaySelect(day, day.daytimes[daytime.id])" ng-repeat="day in sources.view.days track by $index">
+				<div class="cell" ng-class="getDayClasses(day, day.daytimes[daytime.id])" ng-repeat="day in sources.view.days track by $index">
 					<button type="button" class="btn btn-daytime-empty" ng-if="!day.daytimes[daytime.id].times.length"></button>
-					<button type="button" class="btn btn-daytime" ng-class="{ active: day.daytimes[daytime.id].active }" ng-if="day.daytimes[daytime.id].times.length">
+					<button type="button" class="btn btn-daytime" ng-class="{ active: day.daytimes[daytime.id].active }" ng-click="onDaySelect(day, day.daytimes[daytime.id])" ng-if="day.daytimes[daytime.id].times.length">
 						<span class="number" ng-bind="day.daytimes[daytime.id].times.length"></span>
 						<span class="available">disponibili</span>
 						<span class="selected">Selezionato</span>
