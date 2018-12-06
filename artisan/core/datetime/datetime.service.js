@@ -102,7 +102,7 @@
 		}
 
 		function dateToKey(date) {
-			date = datetime(date);
+			date = dayLeft(datetime(date));
 			var offset = date.getTimezoneOffset();
 			return Math.floor((date.valueOf() - offset * MINUTE) / DAY);
 		}

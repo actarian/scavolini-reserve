@@ -14,9 +14,12 @@
 				},
 			},
 			reserve: {
-				data: function() {
+				data: function(storeId) {
 					return Http.get('/reserve/data.json');
 				},
+				days: function(storeId, from, to) {
+					return Http.get('/reserve/days.json', { from: from, to: to });
+				}
 			},
 			/*
 			auth: {

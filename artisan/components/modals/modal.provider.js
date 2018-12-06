@@ -41,7 +41,7 @@
 						if (modals.length) {
 							modals[modals.length - 1].active = true;
 						}
-					}, 1000);
+					}, 0);
 				}
 			}
 
@@ -62,7 +62,7 @@
 						while (modals.length) {
 							modals.splice(modals.length - 1, 1);
 						}
-					}, 1000);
+					}, 0);
 				}
 			}
 

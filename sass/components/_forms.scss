@@ -3,12 +3,34 @@
 @import "mixins";
 
 .form-group {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	align-items: center;
 	min-height: 68px;
-	border-bottom: 1px solid #d6d6d6;
+
+	label {
+		display: block;
+		margin: 0;
+		color: #28292b;
+		font-size: 14px;
+		margin-bottom: 10px;
+	}
+
+	.form-control {
+		display: block;
+		width: 100%;
+		min-height: 50px;
+		border: 1px solid #d6d6d6;
+		background: white;
+		margin-bottom: 30px;
+		padding: 15px;
+		color: #999999;
+
+		&::placeholder {
+			color: #999999;
+		}
+	}
+
+	.required {
+		color: #C00019;
+	}
 
 	.content {
 		display: flex;
@@ -48,14 +70,48 @@
 }
 
 .form-group-cta {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	border-bottom: 1px solid #d6d6d6;
+
+	label {
+		font-size: 13px;
+		color: #888888;
+		margin: 0;
+	}
+
 	.content {
-		min-width: calc(100% - 100px);
-		flex: 1 0 calc(100% - 100px);
+		min-width: calc(100% - 110px);
+		flex: 1 0 calc(100% - 110px);
 	}
 
 	.cta {
-		flex: 1 0 auto;
+		min-width: 110px;
+		flex: 1 0 110px;
 		text-align: right;
+	}
+}
+
+.form-group-inline {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	border-bottom: 1px solid #d6d6d6;
+
+	label {
+		min-width: 110px;
+		flex: 1 0 110px;
+		font-size: 13px;
+		color: #888888;
+		margin: 0;
+	}
+
+	.content {
+		min-width: calc(100% - 110px);
+		flex: 1 0 calc(100% - 110px);
 	}
 }
 

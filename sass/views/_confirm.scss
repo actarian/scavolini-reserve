@@ -1,0 +1,38 @@
+.section-confirm {
+	position: relative;
+
+	.h2 {
+		color: #c00019;
+		margin-bottom: 40px;
+	}
+
+	.background-right {
+		position: relative;
+
+		&:before {
+			content: '';
+			position: absolute;
+			background: #e6e6e6;
+			height: 100vh;
+			width: 100vw;
+			bottom: 50%;
+			left: 0;
+		}
+
+		&:after {
+			content: '';
+			position: absolute;
+			background: #e6e6e6;
+			height: 100vh;
+			width: 100vw;
+			top: 50%;
+			left: 0;
+		}
+
+		div {
+			position: relative;
+			z-index: 1;
+		}
+	}
+
+}

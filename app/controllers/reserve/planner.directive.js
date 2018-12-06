@@ -3,7 +3,7 @@
 
 	var app = angular.module('artisan');
 
-	app.directive('planner', ['$templateCache', '$parse', '$q', '$timeout', '$filter', 'Hash', 'DateTime', 'Range', 'CalendarFactory', 'State', 'Api', function($templateCache, $parse, $q, $timeout, $filter, Hash, DateTime, Range, CalendarFactory, State, Api) {
+	app.directive('planner', ['$templateCache', '$parse', '$q', '$timeout', '$filter', 'Hash', 'DateTime', 'Range', 'PlannerFactory', 'State', 'Api', function($templateCache, $parse, $q, $timeout, $filter, Hash, DateTime, Range, PlannerFactory, State, Api) {
 
 		return {
 			priority: 1002,
@@ -29,10 +29,10 @@
 
 		function Link(scope, element, attributes, model, transclude) {
 
-			var calendar = new CalendarFactory();
+			var planner = new PlannerFactory();
 
 			var options = scope.options || {
-				onMonthDidChange: function() {},
+				onWeekDidChange: function() {},
 				onWeekDidSelect: function() {},
 				onDayDidSelect: function() {},
 			};
@@ -51,7 +51,6 @@
 			var publics = {
 				sources: sources,
 				doNavWeek: doNavWeek,
-				doNavMonth: doNavMonth,
 				onWeekSelect: onWeekSelect,
 				onDaySelect: onDaySelect,
 				getDayClasses: getDayClasses,
@@ -74,7 +73,7 @@
 			}
 
 			function onWeekChange(date) {
-				var view = calendar.getWeekByDate(week.getDate());
+				var view = planner.getWeekByDate(week.getDate());
 				view.days.each(function(day) {
 					var d = day.date.getDay();
 					day.dirty = true;
@@ -90,45 +89,7 @@
 					day.workable = false;
 				});
 				sources.view = view;
-				// console.log('calendarPopup.onMonthChange', view);
-				options.onMonthDidChange(date, month, view);
-			}
-
-			// setMonth(); // Init
-
-			function setMonth(date) {
-				if (!date || month.isOutside(date)) {
-					if (date) {
-						month.setDate(date);
-					}
-					onMonthChange(date);
-				}
-			}
-
-			function onMonthChange(date) {
-				var view = calendar.getMonthByDate(month.getDate());
-				view.days.each(function(day) {
-					var d = day.date.getDay();
-					day.dirty = true;
-					day.hours = 0;
-					day.availableHours = 0;
-					day.recordedHours = 0;
-					day.selected = sources.day.isCurrent(day.date);
-					day.past = day.key < Range.today.key;
-					day.weekend = d === 0 || d === 6;
-					day.working = !day.weekend;
-					// reset
-					day.holiday = false;
-					day.vacation = false;
-					day.wasVacation = false;
-					day.wasWorkable = false;
-					day.workable = false;
-					day.green = false;
-					day.orange = false;
-				});
-				sources.view = view;
-				// console.log('calendarPopup.onMonthChange', view);
-				options.onMonthDidChange(date, month, view);
+				options.onWeekDidChange(date, week, view);
 			}
 
 			function onWeekSelect(week) {
@@ -163,11 +124,6 @@
 			function doNavWeek(dir) {
 				// console.log('doNavWeek', dir);
 				setWeek(week.getDate(dir));
-			}
-
-			function doNavMonth(dir) {
-				// console.log('doNavMonth', dir);
-				setMonth(month.getDate(dir));
 			}
 
 			function getDayClasses(day) {

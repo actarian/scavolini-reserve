@@ -1426,7 +1426,7 @@
 						if (modals.length) {
 							modals[modals.length - 1].active = true;
 						}
-					}, 1000);
+					}, 0);
 				}
 			}
 
@@ -1447,7 +1447,7 @@
 						while (modals.length) {
 							modals.splice(modals.length - 1, 1);
 						}
-					}, 1000);
+					}, 0);
 				}
 			}
 
@@ -4719,7 +4719,7 @@
 		}
 
 		function dateToKey(date) {
-			date = datetime(date);
+			date = dayLeft(datetime(date));
 			var offset = date.getTimezoneOffset();
 			return Math.floor((date.valueOf() - offset * MINUTE) / DAY);
 		}

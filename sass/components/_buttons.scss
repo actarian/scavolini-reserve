@@ -138,10 +138,10 @@ button,
 	}
 }
 
-.btn-appointment {
+.btn-daytime {
 	width: 114px;
 	height: 114px;
-	background: #eeeeed;
+	background: white;
 	border: 2px solid #d6d6d6;
 	text-align: center;
 
@@ -212,6 +212,15 @@ button,
 	}
 
 	&:disabled {}
+}
+
+.btn-daytime-empty {
+	width: 114px;
+	height: 114px;
+	background: #eeeeed;
+	text-align: center;
+	pointer-events: none;
+	cursor: auto;
 }
 
 

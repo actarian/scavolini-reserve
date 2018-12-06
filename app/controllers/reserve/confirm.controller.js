@@ -5,11 +5,9 @@
 
 	var app = angular.module('app');
 
-	app.controller('ReserveController', ['$scope', '$location', 'State', 'BookingService', 'View', 'Range', 'store', function($scope, $location, State, BookingService, View, Range, store) {
+	app.controller('ConfirmController', ['$scope', '$location', 'State', 'BookingService', 'View', 'Range', 'store', 'booking', function($scope, $location, State, BookingService, View, Range, store, booking) {
 
 		var state = new State();
-
-		var booking = null;
 
 		var publics = {
 			state: state,
@@ -22,15 +20,7 @@
 
 		Object.assign($scope, publics);
 
-		BookingService.new().then(function($booking) {
-			booking = $booking;
-			$scope.booking = booking;
-			state.ready();
-
-		}, function(error) {
-			state.error(error);
-
-		});
+		state.ready();
 
 		function onSelectCategory() {
 			console.log('ReserveController.onSelectCategory');
@@ -58,8 +48,12 @@
 			});
 		}
 
+		function onBack() {
+			$location.path('/reserve/' + store.id + '/planner');
+		}
+
 		function onSubmit() {
-			console.log('ReserveController.onSubmit', booking.model.products.map(function(x) { return x.name; }).join(', '));
+			console.log('ConfirmController.onSubmit', booking.model.user.name);
 			if (state.busy()) {
 				BookingService.update(booking.model).then(function(model) {
 					$location.path('/reserve/' + store.id + '/planner');

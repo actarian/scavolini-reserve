@@ -810,30 +810,30 @@ button:disabled,
 .btn-back i {
   margin-right: 10px; }
 
-.btn-appointment {
+.btn-daytime {
   width: 114px;
   height: 114px;
-  background: #eeeeed;
+  background: white;
   border: 2px solid #d6d6d6;
   text-align: center; }
-  .btn-appointment .number {
+  .btn-daytime .number {
     display: block;
     font-size: 40px;
     line-height: 40px;
     color: #c00019; }
-  .btn-appointment .available {
+  .btn-daytime .available {
     display: block;
     font-size: 16px;
     link-height: 24px;
     color: #28292b; }
-  .btn-appointment .selected,
-  .btn-appointment .time {
+  .btn-daytime .selected,
+  .btn-daytime .time {
     display: block;
     font-size: 13px;
     link-height: 20px;
     color: #28292b; }
-  .btn-appointment .select,
-  .btn-appointment .modify {
+  .btn-daytime .select,
+  .btn-daytime .modify {
     display: none;
     font-size: 13px;
     link-height: 24px;
@@ -841,24 +841,32 @@ button:disabled,
     opacity: 0;
     -webkit-transition: all 350ms ease-in-out;
     transition: all 350ms ease-in-out; }
-  .btn-appointment:hover {
+  .btn-daytime:hover {
     border-color: #28292b; }
-    .btn-appointment:hover .available {
+    .btn-daytime:hover .available {
       display: none; }
-    .btn-appointment:hover .select,
-    .btn-appointment:hover .modify {
+    .btn-daytime:hover .select,
+    .btn-daytime:hover .modify {
       display: block;
       opacity: 1; }
-  .btn-appointment:not(.active) .selected,
-  .btn-appointment:not(.active) .time,
-  .btn-appointment:not(.active) .modify {
+  .btn-daytime:not(.active) .selected,
+  .btn-daytime:not(.active) .time,
+  .btn-daytime:not(.active) .modify {
     display: none; }
-  .btn-appointment.active {
+  .btn-daytime.active {
     border: 3px solid #c00019; }
-    .btn-appointment.active .number,
-    .btn-appointment.active .available,
-    .btn-appointment.active .select {
+    .btn-daytime.active .number,
+    .btn-daytime.active .available,
+    .btn-daytime.active .select {
       display: none; }
+
+.btn-daytime-empty {
+  width: 114px;
+  height: 114px;
+  background: #eeeeed;
+  text-align: center;
+  pointer-events: none;
+  cursor: auto; }
 
 .btn-block {
   display: block;
@@ -1164,21 +1172,32 @@ Scrollbar
 --------------------
 */
 .form-group {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  min-height: 68px;
-  border-bottom: 1px solid #d6d6d6; }
+  min-height: 68px; }
+  .form-group label {
+    display: block;
+    margin: 0;
+    color: #28292b;
+    font-size: 14px;
+    margin-bottom: 10px; }
+  .form-group .form-control {
+    display: block;
+    width: 100%;
+    min-height: 50px;
+    border: 1px solid #d6d6d6;
+    background: white;
+    margin-bottom: 30px;
+    padding: 15px;
+    color: #999999; }
+    .form-group .form-control::-webkit-input-placeholder {
+      color: #999999; }
+    .form-group .form-control:-ms-input-placeholder {
+      color: #999999; }
+    .form-group .form-control::-ms-input-placeholder {
+      color: #999999; }
+    .form-group .form-control::placeholder {
+      color: #999999; }
+  .form-group .required {
+    color: #C00019; }
   .form-group .content {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -1214,17 +1233,65 @@ Scrollbar
     line-height: 20px;
     color: #888888; }
 
-.form-group-cta .content {
-  min-width: calc(100% - 100px);
-  -webkit-box-flex: 1;
-      -ms-flex: 1 0 calc(100% - 100px);
-          flex: 1 0 calc(100% - 100px); }
+.form-group-cta {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-bottom: 1px solid #d6d6d6; }
+  .form-group-cta label {
+    font-size: 13px;
+    color: #888888;
+    margin: 0; }
+  .form-group-cta .content {
+    min-width: calc(100% - 110px);
+    -webkit-box-flex: 1;
+        -ms-flex: 1 0 calc(100% - 110px);
+            flex: 1 0 calc(100% - 110px); }
+  .form-group-cta .cta {
+    min-width: 110px;
+    -webkit-box-flex: 1;
+        -ms-flex: 1 0 110px;
+            flex: 1 0 110px;
+    text-align: right; }
 
-.form-group-cta .cta {
-  -webkit-box-flex: 1;
-      -ms-flex: 1 0 auto;
-          flex: 1 0 auto;
-  text-align: right; }
+.form-group-inline {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-bottom: 1px solid #d6d6d6; }
+  .form-group-inline label {
+    min-width: 110px;
+    -webkit-box-flex: 1;
+        -ms-flex: 1 0 110px;
+            flex: 1 0 110px;
+    font-size: 13px;
+    color: #888888;
+    margin: 0; }
+  .form-group-inline .content {
+    min-width: calc(100% - 110px);
+    -webkit-box-flex: 1;
+        -ms-flex: 1 0 calc(100% - 110px);
+            flex: 1 0 calc(100% - 110px); }
 
 .form-action {
   display: -webkit-box;
@@ -2517,6 +2584,33 @@ header {
     line-height: 24px;
     color: #28292b; }
 
+.section-confirm {
+  position: relative; }
+  .section-confirm .h2 {
+    color: #c00019;
+    margin-bottom: 40px; }
+  .section-confirm .background-right {
+    position: relative; }
+    .section-confirm .background-right:before {
+      content: '';
+      position: absolute;
+      background: #e6e6e6;
+      height: 100vh;
+      width: 100vw;
+      bottom: 50%;
+      left: 0; }
+    .section-confirm .background-right:after {
+      content: '';
+      position: absolute;
+      background: #e6e6e6;
+      height: 100vh;
+      width: 100vw;
+      top: 50%;
+      left: 0; }
+    .section-confirm .background-right div {
+      position: relative;
+      z-index: 1; }
+
 /*
 @import "components/json-formatter";
 @import "views/cards";
@@ -2551,7 +2645,8 @@ main {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  min-height: calc(100vh - 80px); }
+  min-height: calc(100vh - 80px);
+  overflow: hidden; }
   .centered > ng-view {
     display: block;
     min-width: 100%; }

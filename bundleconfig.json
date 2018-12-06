@@ -103,8 +103,10 @@
 		"app/services/store.service.js",
 
 		"app/controllers/reserve/categories.modal.js",
+		"app/controllers/reserve/confirm.controller.js",
         "app/controllers/reserve/planner.controller.js",
 		"app/controllers/reserve/planner.directive.js",
+        "app/controllers/reserve/planner.factory.js",
 		"app/controllers/reserve/products.modal.js",
 		"app/controllers/reserve/reserve.controller.js",
 		"app/controllers/reserve/times.modal.js",

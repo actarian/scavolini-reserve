@@ -44,6 +44,20 @@
 				}]
 			},
 
+		}).when('/reserve/:storeId/confirm', {
+			templateUrl: function() {
+				return 'views/reserve/confirm.html';
+			},
+			controller: 'ConfirmController',
+			resolve: {
+				store: ['$route', 'Api', function($route, Api) {
+					return Api.store.getById($route.current.params.storeId);
+				}],
+				booking: ['BookingService', function(BookingService) {
+					return BookingService.currentOrGoTo('/');
+				}]
+			},
+
 		}).when('/contact-us', {
 			templateUrl: function() {
 				return 'views/contact-us.html';

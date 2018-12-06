@@ -57,14 +57,5 @@
 	"daytimes": [
 		{ "id": 1, "name": "Mattino", "description": "9:30 - 12:30" },
 		{ "id": 2, "name": "Pomeriggio", "description": "15:30 - 19:30" }
-	],
-	"times": [
-		{ "daytime": 1, "id": 1, "name": "9:30 / 10:30" },
-		{ "daytime": 1, "id": 2, "name": "10:30 / 11:30" },
-		{ "daytime": 1, "id": 3, "name": "11:30 / 12:30" },
-		{ "daytime": 2, "id": 4, "name": "15:30 / 16:30" },
-		{ "daytime": 2, "id": 5, "name": "16:30 / 17:30" },
-		{ "daytime": 2, "id": 6, "name": "17:30 / 18:30" },
-		{ "daytime": 2, "id": 7, "name": "18:30 / 19:30" }
 	]
 }

@@ -49,41 +49,8 @@
 
 		$scope.nav = nav;
 
-		////////////
-
 		var scrollable = new Scrollable();
-
 		$scope.scrollable = scrollable;
-
-		/*
-		var year = Range.Year();
-		var semester = Range.Semester();
-		var trimester = Range.Trimester();
-		var quarter = Range.Quarter();
-		var month = Range.Month();
-		var week = Range.Week();
-		var day = Range.Day();
-
-		var ranges = {
-			year: year,
-			semester: semester,
-			trimester: trimester,
-			quarter: quarter,
-			month: month,
-			week: week,
-			day: day,
-		};
-		*/
-
-		/*
-		angular.forEach(ranges, function(range) {
-		    console.log(range.toString());
-		});
-		*/
-
-		/*
-		$scope.ranges = ranges;
-		*/
 
     }]);
 
