@@ -58,6 +58,20 @@
 				}]
 			},
 
+		}).when('/reserve/:storeId/confirmed', {
+			templateUrl: function() {
+				return 'views/reserve/confirmed.html';
+			},
+			controller: 'ConfirmedController',
+			resolve: {
+				store: ['$route', 'Api', function($route, Api) {
+					return Api.store.getById($route.current.params.storeId);
+				}],
+				booking: ['BookingService', function(BookingService) {
+					return BookingService.currentOrGoTo('/');
+				}]
+			},
+
 		}).when('/contact-us', {
 			templateUrl: function() {
 				return 'views/contact-us.html';
@@ -89,6 +103,18 @@
 			title: 'Times modal',
 			templateUrl: 'views/reserve/modals/times.html',
 			controller: 'TimesModal',
+			customClass: '',
+
+		}).when('editModal', {
+			title: 'Edit modal',
+			templateUrl: 'views/reserve/modals/edit.html',
+			controller: 'EditModal',
+			customClass: '',
+
+		}).when('cancelModal', {
+			title: 'Cancel modal',
+			templateUrl: 'views/reserve/modals/cancel.html',
+			controller: 'CancelModal',
 			customClass: '',
 
 		});

@@ -102,8 +102,11 @@
 		"app/services/booking.service.js",
 		"app/services/store.service.js",
 
+		"app/controllers/reserve/cancel.modal.js",
 		"app/controllers/reserve/categories.modal.js",
 		"app/controllers/reserve/confirm.controller.js",
+		"app/controllers/reserve/confirmed.controller.js",
+		"app/controllers/reserve/edit.modal.js",
         "app/controllers/reserve/planner.controller.js",
 		"app/controllers/reserve/planner.directive.js",
         "app/controllers/reserve/planner.factory.js",

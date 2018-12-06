@@ -129,6 +129,20 @@
 				}]
 			},
 
+		}).when('/reserve/:storeId/confirmed', {
+			templateUrl: function() {
+				return 'views/reserve/confirmed.html';
+			},
+			controller: 'ConfirmedController',
+			resolve: {
+				store: ['$route', 'Api', function($route, Api) {
+					return Api.store.getById($route.current.params.storeId);
+				}],
+				booking: ['BookingService', function(BookingService) {
+					return BookingService.currentOrGoTo('/');
+				}]
+			},
+
 		}).when('/contact-us', {
 			templateUrl: function() {
 				return 'views/contact-us.html';
@@ -160,6 +174,18 @@
 			title: 'Times modal',
 			templateUrl: 'views/reserve/modals/times.html',
 			controller: 'TimesModal',
+			customClass: '',
+
+		}).when('editModal', {
+			title: 'Edit modal',
+			templateUrl: 'views/reserve/modals/edit.html',
+			controller: 'EditModal',
+			customClass: '',
+
+		}).when('cancelModal', {
+			title: 'Cancel modal',
+			templateUrl: 'views/reserve/modals/cancel.html',
+			controller: 'CancelModal',
 			customClass: '',
 
 		});
@@ -422,6 +448,46 @@
 
 	var app = angular.module('app');
 
+	app.controller('CancelModal', ['$scope', 'State', function($scope, State) {
+
+		var state = new State();
+
+		var modal = $scope.modal;
+
+		var publics = {
+			state: state,
+			onSubmit: onSubmit,
+			onCancel: onCancel,
+		};
+
+		Object.assign($scope, publics);
+
+		state.ready();
+
+		function onSubmit() {
+			if (state.busy()) {
+				setTimeout(function() {
+					state.success();
+					modal.resolve();
+				}, 500);
+			}
+		}
+
+		function onCancel() {
+			modal.reject();
+		}
+
+	}]);
+
+}());
+
+/* global angular */
+
+(function() {
+	"use strict";
+
+	var app = angular.module('app');
+
 	app.controller('CategoriesModal', ['$scope', 'State', 'View', 'Range', function($scope, State, View, Range) {
 
 		var state = new State();
@@ -525,13 +591,114 @@
 			console.log('ConfirmController.onSubmit', booking.model.user.name);
 			if (state.busy()) {
 				BookingService.update(booking.model).then(function(model) {
-					$location.path('/reserve/' + store.id + '/planner');
+					$location.path('/reserve/' + store.id + '/confirmed');
 					state.success();
 				});
 			}
 		}
 
     }]);
+
+}());
+
+/* global angular */
+
+(function() {
+	"use strict";
+
+	var app = angular.module('app');
+
+	app.controller('ConfirmedController', ['$scope', '$location', 'State', 'BookingService', 'View', 'Range', 'store', 'booking', function($scope, $location, State, BookingService, View, Range, store, booking) {
+
+		var state = new State();
+
+		var publics = {
+			state: state,
+			store: store,
+			booking: booking,
+			onCancelReservation: onCancelReservation,
+			onEditUserData: onEditUserData,
+			onBack: onBack,
+		};
+
+		Object.assign($scope, publics);
+
+		state.ready();
+
+		function onCancelReservation() {
+			console.log('ConfirmedController.onCancelReservation');
+			$scope.$root.addModal('cancelModal').then(function resolve() {
+				$location.path('/reserve/' + store.id + '/canceled');
+
+			}, function reject(data) {
+				console.log('timesModal.reject', data);
+
+			});
+		}
+
+		function onEditUserData() {
+			console.log('ConfirmedController.onEditUserData');
+			$scope.$root.addModal('editModal', booking.model).then(function resolve(model) {
+				BookingService.update(model).then(function(model) {
+					booking.model = model;
+				});
+
+			}, function reject(data) {
+				console.log('timesModal.reject', data);
+
+			});
+		}
+
+		function onBack() {
+			$location.path('/reserve/' + store.id + '/confirm');
+		}
+
+    }]);
+
+}());
+
+/* global angular */
+
+(function() {
+	"use strict";
+
+	var app = angular.module('app');
+
+	app.controller('EditModal', ['$scope', 'State', function($scope, State) {
+
+		var state = new State();
+
+		var modal = $scope.modal;
+
+		var model = $scope.params ? $scope.params : {};
+
+		var publics = {
+			state: state,
+			model: model,
+			onSubmit: onSubmit,
+			onCancel: onCancel,
+		};
+
+		Object.assign($scope, publics);
+
+		state.ready();
+
+		function onSubmit() {
+			console.log('EditModal.onSubmit');
+			if (state.busy()) {
+				setTimeout(function() {
+					state.success();
+					modal.resolve(model);
+				}, 500);
+			}
+		}
+
+		function onCancel() {
+			console.log('EditModal.onCancel');
+			modal.reject();
+		}
+
+	}]);
 
 }());
 
@@ -942,7 +1109,7 @@
 
 	var app = angular.module('app');
 
-	app.controller('ProductsModal', ['$scope', 'State', 'View', 'Range', function($scope, State, View, Range) {
+	app.controller('ProductsModal', ['$scope', 'State', function($scope, State) {
 
 		var state = new State();
 
@@ -1060,7 +1227,7 @@
 
 	var app = angular.module('app');
 
-	app.controller('TimesModal', ['$scope', 'State', 'View', 'Range', function($scope, State, View, Range) {
+	app.controller('TimesModal', ['$scope', 'State', function($scope, State) {
 
 		var state = new State();
 

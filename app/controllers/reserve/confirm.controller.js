@@ -56,7 +56,7 @@
 			console.log('ConfirmController.onSubmit', booking.model.user.name);
 			if (state.busy()) {
 				BookingService.update(booking.model).then(function(model) {
-					$location.path('/reserve/' + store.id + '/planner');
+					$location.path('/reserve/' + store.id + '/confirmed');
 					state.success();
 				});
 			}

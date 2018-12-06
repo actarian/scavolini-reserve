@@ -5,7 +5,7 @@
 
 	var app = angular.module('app');
 
-	app.controller('TimesModal', ['$scope', 'State', 'View', 'Range', function($scope, State, View, Range) {
+	app.controller('TimesModal', ['$scope', 'State', function($scope, State) {
 
 		var state = new State();
 

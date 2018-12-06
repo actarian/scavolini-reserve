@@ -55,33 +55,34 @@
 				<form name="view.form" role="form" novalidate autocomplete="off" ng-submit="view.form.$valid && onSubmit()" ng-keyup="$event.keyCode == 13 && view.form.$valid && onSubmit()">
 					<div class="form-headline">
 						<div class="h2">Inserisci i tuoi dati</div>
+						<div><sup class="required">*</sup> Campi obbligatori</div>
 					</div>
 					<div class="form-group">
 						<label>Nome <sup class="required">*</sup></label>
-						<input placeholder="Il tuo nome" name="firstName" ng-model="booking.model.user.firstName" class="form-control" type="text" required />
+						<input placeholder="Il tuo nome" name="firstName" ng-model="booking.model.user.firstName" type="text" class="form-control" type="text" required />
 					</div>
 					<div class="form-group">
 						<label>Cognome <sup class="required">*</sup></label>
-						<input placeholder="Il tuo cognome" name="lastName" ng-model="booking.model.user.lastName" class="form-control" type="text" required />
+						<input placeholder="Il tuo cognome" name="lastName" ng-model="booking.model.user.lastName" type="text" class="form-control" type="text" required />
 					</div>
 					<div class="form-group">
 						<label>Email <sup class="required">*</sup></label>
-						<input placeholder="la tua email" name="email" ng-model="booking.model.user.email" class="form-control" type="text" required />
+						<input placeholder="la tua email" name="email" ng-model="booking.model.user.email" type="text" class="form-control" type="text" required />
 					</div>
 					<div class="form-group">
 						<label>Cellulare <sup class="required">*</sup></label>
-						<input placeholder="Il tuo cellulare" name="mobilePhone" ng-model="booking.model.user.mobilePhone" class="form-control" type="text" required />
+						<input placeholder="Il tuo cellulare" name="mobilePhone" ng-model="booking.model.user.mobilePhone" type="text" class="form-control" type="text" required />
 					</div>
 					<div class="form-group">
 						<label>Vuoi aggiungere un messaggio?</label>
-						<textarea class="form-control">Aggiungi qui eventuali domande o richieste aggiuntive che possono essere utili allo store per organizzare al meglio il tuo appuntamento.</textarea>
+						<textarea name="message" ng-model="booking.model.user.message" class="form-control">Aggiungi qui eventuali domande o richieste aggiuntive che possono essere utili allo store per organizzare al meglio il tuo appuntamento.</textarea>
 					</div>
 					<div class="form-group form-group-checkbox form-check">
-						<input type="hidden" name="privacy" ng-model="booking.model.user.privacyAccepted" ng-required="required" />
+						<input type="hidden" name="privacy" ng-model="booking.model.user.privacyAccepted" required />
 						<div class="input-group">
 							<label class="form-check-label">
-								<input type="checkbox" class="form-check-input" ng-model="booking.model.user.privacyAccepted" name="privacy" />
-								Ho letto e accetto la <a>politica privacy</a> adottata dal Gruppo Scavolini <sup class="required">*</sup>
+								<input name="privacy" class="form-check-input" ng-model="booking.model.user.privacyAccepted" type="checkbox" ng-true-value="true" ng-false-value="null" />
+								Ho letto e accetto la <a href="#">politica privacy</a> adottata dal Gruppo Scavolini <sup class="required">*</sup>
 							</label>
 						</div>
 					</div>

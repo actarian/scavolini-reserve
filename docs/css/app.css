@@ -403,12 +403,13 @@ Scrollbar
 .h1 {
   font-weight: 800;
   font-size: 44px;
-  letter-spacing: -0.2px; }
+  letter-spacing: -0.2px;
+  margin: 0; }
 
 .h2 {
   font-size: 28px;
   color: #c00019;
-  margin-bottom: 60px; }
+  margin: 0; }
 
 /*
 @function pow($number, $exp) {
@@ -631,7 +632,8 @@ Scrollbar
   max-height: calc(100% - 260px);
   overflow-x: hidden;
   overflow-y: auto;
-  margin-right: -10px; }
+  margin-right: -15px;
+  padding-right: 15px; }
   .nav-select .name {
     min-width: calc(100% - 70px);
     -webkit-box-flex: 1;
@@ -701,24 +703,22 @@ button,
 a {
   cursor: pointer;
   -webkit-transition: all ease-in-out 350ms;
-  transition: all ease-in-out 350ms; }
-  [ng-click], [ng-click]:hover, [ng-click]:active, [ng-click]:focus, [ng-click]:visited,
-  [link-to],
-  [link-to]:hover,
-  [link-to]:active,
-  [link-to]:focus,
-  [link-to]:visited,
-  button,
-  button:hover,
-  button:active,
-  button:focus,
-  button:visited,
-  a,
-  a:hover,
-  a:active,
-  a:focus,
-  a:visited {
-    text-decoration: none; }
+  transition: all ease-in-out 350ms;
+  /*
+	&,
+	&:hover,
+	&:active,
+	&:focus,
+	&:visited {
+		text-decoration: none;
+	}
+	*/ }
+
+a {
+  color: #c00019;
+  text-decoration: underline; }
+  a:hover, a:active {
+    color: #8d0012; }
 
 button {
   background: transparent;
@@ -767,6 +767,19 @@ button:disabled,
     background: #970014; }
   .btn-primary:disabled {
     background: #707070; }
+
+.btn-cancel {
+  display: inline-block;
+  min-width: 290px;
+  background: #e6e6e6;
+  color: #28292b;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1;
+  padding: 27px 15px;
+  text-align: center; }
+  .btn-cancel:hover {
+    background: #d2d2d2; }
 
 .btn-arrow {
   display: inline-block;
@@ -1171,6 +1184,34 @@ Scrollbar
         1
 --------------------
 */
+.form-headline {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  min-height: 60px;
+  margin-bottom: 40px; }
+  .form-headline:first-child {
+    min-width: calc(100% - 110px);
+    -webkit-box-flex: 1;
+        -ms-flex: 1 0 calc(100% - 110px);
+            flex: 1 0 calc(100% - 110px); }
+  .form-headline:last-child {
+    min-width: 110px;
+    -webkit-box-flex: 1;
+        -ms-flex: 1 0 110px;
+            flex: 1 0 110px;
+    text-align: right; }
+
 .form-group {
   min-height: 68px; }
   .form-group label {
@@ -1293,14 +1334,41 @@ Scrollbar
         -ms-flex: 1 0 calc(100% - 110px);
             flex: 1 0 calc(100% - 110px); }
 
+.form-group-action {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center; }
+
+.form-body {
+  height: 100%;
+  max-height: calc(100vh - 540px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  margin-right: -15px;
+  padding-right: 15px; }
+
 .form-action {
+  padding-top: 80px; }
+  .form-action:not(.form-action-inline) .btn + .btn {
+    margin-top: 15px; }
+
+.form-action-inline {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
-          justify-content: space-between;
-  padding-top: 80px; }
+          justify-content: space-between; }
 
 /*
 
@@ -2380,6 +2448,7 @@ Scrollbar
   display: block;
   position: absolute;
   max-width: 490px;
+  width: 100%;
   bottom: 0;
   top: 0;
   right: 0;
@@ -2587,8 +2656,7 @@ header {
 .section-confirm {
   position: relative; }
   .section-confirm .h2 {
-    color: #c00019;
-    margin-bottom: 40px; }
+    color: #c00019; }
   .section-confirm .background-right {
     position: relative; }
     .section-confirm .background-right:before {
@@ -2610,6 +2678,30 @@ header {
     .section-confirm .background-right div {
       position: relative;
       z-index: 1; }
+
+.booking .booking__confirm {
+  font-size: 44px;
+  line-height: 50px;
+  color: #c00019;
+  margin-bottom: 35px; }
+
+.booking .booking__detail {
+  font-size: 28px;
+  line-height: 40px;
+  color: #28292b;
+  margin-bottom: 40px; }
+
+.booking .booking__email {
+  font-size: 18px;
+  line-height: 30px;
+  color: #28292b;
+  margin-bottom: 35px;
+  text-decoration: underline; }
+
+.booking .booking__thanks {
+  font-size: 28px;
+  line-height: 40px;
+  color: #28292b; }
 
 /*
 @import "components/json-formatter";
@@ -2727,3 +2819,13 @@ main {
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none; }
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+  background-color: #f3f3f3;
+  border-radius: 2px; }
+
+::-webkit-scrollbar-thumb {
+  background: #dadada;
+  border-radius: 2px; }
