@@ -628,12 +628,7 @@ Scrollbar
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  border-top: 1px solid #888888;
-  max-height: calc(100% - 260px);
-  overflow-x: hidden;
-  overflow-y: auto;
-  margin-right: -15px;
-  padding-right: 15px; }
+  border-top: 1px solid #888888; }
   .nav-select .name {
     min-width: calc(100% - 70px);
     -webkit-box-flex: 1;

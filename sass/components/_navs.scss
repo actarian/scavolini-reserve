@@ -37,12 +37,6 @@
 .nav-select {
 	flex-direction: column;
 	border-top: 1px solid #888888;
-	max-height: calc(100% - 260px);
-	overflow-x: hidden;
-	overflow-y: auto;
-	margin-right: -15px;
-	padding-right: 15px;
-
 
 	.name {
 		min-width: calc(100% - 70px);
