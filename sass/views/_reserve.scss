@@ -17,7 +17,7 @@
 		}
 	}
 
-	@include media-breakpoint-down(lg) {
+	@include media-breakpoint-down(md) {
 		.picture {
 			margin: 40px 0;
 		}

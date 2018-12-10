@@ -97,8 +97,8 @@ $templateCache.put("artisan/components/forms/partial/checkbox","<input type=\"hi
     "	</label>\n" +
     "	<control-messages></control-messages>\n" +
     "	<div class=\"input-group\" ng-repeat=\"item in source\">\n" +
-    "		<label class=\"form-check-label\">\n" +
-    "			<input type=\"radio\" class=\"form-check-input\" ng-model=\"$parent.ngModel\" name=\"input-{{field}}\" ng-value=\"item.id\" />\n" +
+    "		<label class=\"form-label-check\">\n" +
+    "			<input type=\"radio\" class=\"form-control-check\" ng-model=\"$parent.ngModel\" name=\"input-{{field}}\" ng-value=\"item.id\" />\n" +
     "			{{item.name}}\n" +
     "		</label>\n" +
     "	</div>\n" +
@@ -137,8 +137,8 @@ $templateCache.put("artisan/components/forms/partial/radio","<input type=\"hidde
     "	</label>\n" +
     "	<control-messages></control-messages>\n" +
     "	<div class=\"input-group\" ng-repeat=\"item in source\">\n" +
-    "		<label class=\"form-check-label\">\n" +
-    "			<input type=\"radio\" class=\"form-check-input\" ng-model=\"$parent.ngModel\" name=\"input-{{field}}\" ng-value=\"item.id\" />\n" +
+    "		<label class=\"form-label-check\">\n" +
+    "			<input type=\"radio\" class=\"form-control-check\" ng-model=\"$parent.ngModel\" name=\"input-{{field}}\" ng-value=\"item.id\" />\n" +
     "			{{item.name}}\n" +
     "		</label>\n" +
     "	</div>\n" +

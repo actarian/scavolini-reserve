@@ -2,11 +2,11 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-6">
-				<div class="booking">
-					<div class="booking__confirm">Gentile {{booking.model.user.firstName}} il tuo appuntamento è confermato.</div>
-					<div class="booking__detail">{{booking.model.store.name}} ti aspetta il {{booking.model.date | date : 'd MMMM'}} alle ore {{booking.model.time.name}}.</div>
-					<div class="booking__email">Hai ricevuto una e-mail di conferma all'indirizzo {{booking.model.user.email}} dalla quale potrai modificare in qualsiasi momento i tuoi dati o cancellare l'appuntamento.</div>
-					<div class="booking__thanks">Grazie per aver scelto Scavolini.</div>
+				<div class="confirmed">
+					<div class="confirmed__confirm">Gentile {{booking.model.user.firstName}} il tuo appuntamento è confermato.</div>
+					<div class="confirmed__detail">{{booking.model.store.name}} ti aspetta il {{booking.model.date | date : 'd MMMM'}} alle ore {{booking.model.time.name}}.</div>
+					<div class="confirmed__email">Hai ricevuto una e-mail di conferma all'indirizzo {{booking.model.user.email}} dalla quale potrai modificare in qualsiasi momento i tuoi dati o cancellare l'appuntamento.</div>
+					<div class="confirmed__thanks">Grazie per aver scelto Scavolini.</div>
 				</div>
 			</div>
 			<div class="col-lg-6">

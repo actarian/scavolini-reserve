@@ -28,7 +28,7 @@
 				$location.path('/reserve/' + store.id + '/canceled');
 
 			}, function reject(data) {
-				console.log('timesModal.reject', data);
+				console.log('cancelModal.reject', data);
 
 			});
 		}
@@ -41,7 +41,7 @@
 				});
 
 			}, function reject(data) {
-				console.log('timesModal.reject', data);
+				console.log('editModal.reject', data);
 
 			});
 		}

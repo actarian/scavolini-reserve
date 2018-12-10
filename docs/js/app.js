@@ -14,69 +14,7 @@
 
 	var app = angular.module('app');
 
-	app.service('Api', ['Http', 'Bearer', function(Http, Bearer) {
-
-		var api = {
-			store: {
-				getById: function(storeId) {
-					return Http.get('/store/store.json');
-				},
-			},
-			reserve: {
-				data: function(storeId) {
-					return Http.get('/reserve/data.json');
-				},
-				days: function(storeId, from, to) {
-					return Http.get('/reserve/days.json', { from: from, to: to });
-				}
-			},
-			/*
-			auth: {
-			    authorized: function() {
-			        return Http.get('/auth/authorized');
-			    },
-			    token: function (model, remember) {
-			        return Http.post('/auth/token', model).then(function (data) {
-			            Bearer.set(data.accessToken, true);
-			        });
-			    },
-			},
-			*/
-			navs: {
-				main: function() {
-					return Http.get('/navs/main.json');
-				},
-			},
-			docs: {
-				id: function(id) {
-					return Http.get('/docs/' + id + '.json');
-				},
-				path: function(path) {
-					path = path.split('/').join('-');
-					return Http.get('/docs/' + path + '.json');
-				},
-			},
-			maps: {
-				markers: function() {
-					return Http.get('/maps/markers.json');
-				},
-			},
-		};
-
-		Object.assign(this, api);
-
-    }]);
-
-}());
-
-/* global angular */
-
-(function() {
-	"use strict";
-
-	var app = angular.module('app');
-
-	app.config(['$locationProvider', '$routeProvider', '$modalProvider', function($locationProvider, $routeProvider, $modalProvider) {
+	app.config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
 		// HTML5 MODE url writing method (false: #/anchor/use, true: /html5/url/use)
 		// $locationProvider.html5Mode(false);
 		//$locationProvider.hashPrefix(''); /* Back to default: fix ancore sulla stessa pagina https://www.eatalyworld.it/it/chi-siamo/chi-siamo */
@@ -92,7 +30,7 @@
 
 		}).when('/reserve/:storeId', {
 			templateUrl: function() {
-				return 'views/reserve/reserve.html';
+				return 'views/reserve.html';
 			},
 			controller: 'ReserveController',
 			resolve: {
@@ -103,7 +41,7 @@
 
 		}).when('/reserve/:storeId/planner', {
 			templateUrl: function() {
-				return 'views/reserve/planner.html';
+				return 'views/planner.html';
 			},
 			controller: 'PlannerController',
 			resolve: {
@@ -117,7 +55,7 @@
 
 		}).when('/reserve/:storeId/confirm', {
 			templateUrl: function() {
-				return 'views/reserve/confirm.html';
+				return 'views/confirm.html';
 			},
 			controller: 'ConfirmController',
 			resolve: {
@@ -131,7 +69,7 @@
 
 		}).when('/reserve/:storeId/confirmed', {
 			templateUrl: function() {
-				return 'views/reserve/confirmed.html';
+				return 'views/confirmed.html';
 			},
 			controller: 'ConfirmedController',
 			resolve: {
@@ -143,48 +81,64 @@
 				}]
 			},
 
-		}).when('/contact-us', {
+		}).when('/reserve/:storeId/canceled', {
 			templateUrl: function() {
-				return 'views/contact-us.html';
+				return 'views/canceled.html';
 			},
-			controller: 'ContactUsCtrl',
-			// resolve: {
-			//    user: ['Users', function(Users) {
-			//        return Users.isAuthorizedOrGoTo('/home');
-			//    }]
-			// },
+			controller: 'CanceledController',
+			resolve: {
+				store: ['$route', 'Api', function($route, Api) {
+					return Api.store.getById($route.current.params.storeId);
+				}],
+				booking: ['BookingService', function(BookingService) {
+					return BookingService.currentOrGoTo('/');
+				}]
+			},
 
 		});
 
 		$routeProvider.otherwise('/reserve/1');
 
+    }]);
+
+}());
+
+/* global angular */
+
+(function() {
+	"use strict";
+
+	var app = angular.module('app');
+
+	app.config(['$modalProvider', function($modalProvider) {
+
 		$modalProvider.when('categoriesModal', {
 			title: 'Categories modal',
-			templateUrl: 'views/reserve/modals/categories.html',
+			templateUrl: 'views/modals/categories.html',
 			controller: 'CategoriesModal',
 			customClass: '',
 
 		}).when('productsModal', {
 			title: 'Products modal',
-			templateUrl: 'views/reserve/modals/products.html',
+			templateUrl: 'views/modals/products.html',
 			controller: 'ProductsModal',
 			customClass: '',
 
 		}).when('timesModal', {
 			title: 'Times modal',
-			templateUrl: 'views/reserve/modals/times.html',
+			templateUrl: 'views/modals/times.html',
 			controller: 'TimesModal',
 			customClass: '',
 
 		}).when('editModal', {
 			title: 'Edit modal',
-			templateUrl: 'views/reserve/modals/edit.html',
+			templateUrl: 'views/modals/edit.html',
 			controller: 'EditModal',
 			customClass: '',
 
 		}).when('cancelModal', {
 			title: 'Cancel modal',
-			templateUrl: 'views/reserve/modals/cancel.html',
+			templateUrl: 'views/modals/cancel.html',
 			controller: 'CancelModal',
 			customClass: '',
 
@@ -201,8 +155,39 @@
 
 	var app = angular.module('app');
 
+	app.service('Api', ['Http', function(Http) {
+
+		var api = {
+			store: {
+				getById: function(storeId) {
+					return Http.get('/store/store.json');
+				},
+			},
+			reserve: {
+				data: function(storeId) {
+					return Http.get('/reserve/data.json');
+				},
+				days: function(storeId, from, to) {
+					return Http.get('/reserve/days.json', { from: from, to: to });
+				}
+			},
+		};
+
+		Object.assign(this, api);
+
+    }]);
+
+}());
+
+/* global angular */
+
+(function() {
+	"use strict";
+
+	var app = angular.module('app');
+
 	// app.run(['$rootScope', 'Router', 'Trust', 'Bearer', 'FacebookService', 'GoogleService', function($rootScope, Router, Trust, Bearer, FacebookService, GoogleService) {
-	app.run(['$rootScope', '$modal', 'Router', 'Trust', 'Bearer', function($rootScope, $modal, Router, Trust, Bearer) {
+	app.run(['$rootScope', '$modal', 'Router', 'Trust', function($rootScope, $modal, Router, Trust) {
 
 		$rootScope.modals = $modal.modals;
 		$rootScope.addModal = $modal.addModal;
@@ -210,13 +195,23 @@
 		$rootScope.router = Router;
 		$rootScope.trust = Trust;
 
-		$rootScope.accessToken = Bearer.get();
-		console.log('app.run accessToken', $rootScope.accessToken);
-
 		/*
 		FacebookService.require();
 		GoogleService.require();
 		*/
+
+    }]);
+
+}());
+
+/* global angular */
+
+(function() {
+	"use strict";
+
+	var app = angular.module('app');
+
+	app.controller('RootCtrl', ['$scope', '$timeout', '$promise', function($scope, $timeout, $promise) {
 
     }]);
 
@@ -488,6 +483,43 @@
 
 	var app = angular.module('app');
 
+	app.controller('CanceledController', ['$scope', '$location', 'State', 'BookingService', 'View', 'Range', 'store', 'booking', function($scope, $location, State, BookingService, View, Range, store, booking) {
+
+		var state = new State();
+
+		var publics = {
+			state: state,
+			store: store,
+			booking: booking,
+			onStoreChange: onStoreChange,
+			onStoreReserve: onStoreReserve,
+		};
+
+		Object.assign($scope, publics);
+
+		state.ready();
+
+		function onStoreChange() {
+			console.log('CanceledController.onStoreChange');
+			// $location.path('https://www.scavolini.com');
+		}
+
+		function onStoreReserve() {
+			console.log('CanceledController.onStoreReserve');
+			$location.path('/reserve/' + store.id);
+		}
+
+    }]);
+
+}());
+
+/* global angular */
+
+(function() {
+	"use strict";
+
+	var app = angular.module('app');
+
 	app.controller('CategoriesModal', ['$scope', 'State', 'View', 'Range', function($scope, State, View, Range) {
 
 		var state = new State();
@@ -604,7 +636,7 @@
 				$location.path('/reserve/' + store.id + '/canceled');
 
 			}, function reject(data) {
-				console.log('timesModal.reject', data);
+				console.log('cancelModal.reject', data);
 
 			});
 		}
@@ -617,7 +649,7 @@
 				});
 
 			}, function reject(data) {
-				console.log('timesModal.reject', data);
+				console.log('editModal.reject', data);
 
 			});
 		}
@@ -672,102 +704,6 @@
 		}
 
 	}]);
-
-}());
-
-/* global angular */
-
-(function() {
-	"use strict";
-
-	var app = angular.module('app');
-
-	app.controller('PlannerController', ['$scope', '$location', 'State', 'BookingService', 'View', 'Range', 'store', 'booking', function($scope, $location, State, BookingService, View, Range, store, booking) {
-
-		var state = new State();
-
-		var plannerOptions = {
-			onWeekDidChange: function(date, week, view) {
-				// console.log('onWeekDidChange.date', date, week, view);
-				booking.model.date = null;
-				booking.model.daytime = null;
-				booking.model.time = null;
-				booking.getDaysPoolByRange(week.from, week.to).then(function(days) {
-					// console.log(days);
-					view.days.each(function(day) {
-						// console.log(day.key);
-						var poolDay = days[day.key];
-						if (poolDay) {
-							day.times = poolDay.times;
-							day.daytimes = poolDay.daytimes;
-							day.closingDay = poolDay.closingDay;
-						} else {
-							day.times = [];
-							day.daytimes = booking.emptyDaytimes;
-						}
-					});
-				});
-			},
-			onDayDidSelect: function(day, daytime, month, view) {
-				$scope.$root.addModal('timesModal', {
-					day: day,
-					daytime: daytime,
-					times: daytime.times,
-
-				}).then(function resolve(time) {
-					view.days.each(function(day) {
-						Object.keys(day.daytimes).forEach(function(key) {
-							day.daytimes[key].active = false;
-							day.daytimes[key].times.forEach(function(time) {
-								time.active = false;
-							});
-						});
-					});
-					time.active = true;
-					daytime.active = true;
-					daytime.time = time;
-					booking.model.date = day.date;
-					booking.model.daytime = daytime;
-					booking.model.time = time;
-
-				}, function reject(data) {
-					console.log('timesModal.reject', data);
-
-				});
-			},
-			onWeekDidSelect: function(week, month, view) {
-				console.log('onWeekDidSelect.week', week);
-			},
-		};
-
-		var publics = {
-			state: state,
-			store: store,
-			booking: booking,
-			plannerOptions: plannerOptions,
-			onBack: onBack,
-			onSubmit: onSubmit,
-		};
-
-		Object.assign($scope, publics);
-
-		state.ready();
-
-		function onBack() {
-			$location.path('/reserve/' + store.id);
-		}
-
-		function onSubmit() {
-			console.log('PlannerController.onSubmit', booking.model.time.name);
-			if (state.busy()) {
-				BookingService.update(booking.model).then(function(model) {
-					$location.path('/reserve/' + store.id + '/confirm');
-					state.success();
-				});
-			}
-		}
-
-    }]);
 
 }());
 
@@ -933,145 +869,6 @@
 			return (!!input) ? input.charAt(0).toUpperCase() + input.substr(1).toLowerCase() : '';
 		};
 	});
-
-}());
-
-/* global angular */
-
-(function() {
-	"use strict";
-
-	var app = angular.module('app');
-
-	app.factory('PlannerFactory', ['$filter', 'DateTime', 'Hash', function($filter, DateTime, Hash) {
-
-		function Calendar() {
-			this.days = new Hash('key');
-			this.weeks = new Hash('wKey');
-		}
-
-		var statics = {
-			clearMonth: clearMonth,
-			getDate: getDate,
-			getDay: getDay,
-			getKey: getKey,
-		};
-
-		var publics = {
-			getWeeks: getWeeks,
-			getWeek: getWeek,
-			getWeekByDate: getWeekByDate,
-		};
-
-		angular.extend(Calendar, statics);
-		angular.extend(Calendar.prototype, publics);
-
-		return Calendar;
-
-		// statics
-
-		function clearMonth(month) {
-			month.days.each(function(day) {
-				if (day) {
-					day.hours = 0;
-					day.tasks = new Hash('id');
-				}
-			});
-		}
-
-		function getDate(day) {
-			if (typeof day.date.getMonth === 'function') {
-				return day.date;
-			} else {
-				return new Date(day.date);
-			}
-		}
-
-		function getDay(days) {
-			var date = new Date(DateTime.today.date);
-			date.setDate(date.getDate() + days);
-			return date;
-		}
-
-		function getKey(date) {
-			return DateTime.dateToKey(date);
-		}
-
-		// publics
-
-		function getWeeks(num) {
-			var calendar = this;
-			calendar.days.removeAll();
-			calendar.weeks.removeAll();
-			calendar.months.removeAll();
-			var i = 0;
-			while (i < num) {
-				var date = new Date();
-				date.setFullYear(DateTime.today.date.getFullYear());
-				date.setMonth(DateTime.today.date.getMonth() + i);
-				date.setDate(1);
-				date.setHours(0);
-				date.setMinutes(0);
-				date.setSeconds(0);
-				var week = calendar.getWeekByDate(date);
-				// console.log('getWeeks', week);
-				i++;
-			}
-			// console.log('getWeeks', calendar.weeks);
-			return calendar.weeks;
-		}
-
-		function getWeek(day) {
-			var calendar = this;
-			var date = getDate(day);
-			var week = calendar.getWeekByDate(date);
-			return week;
-		}
-
-		function getWeekByDate(date) {
-			date = date || new Date();
-			var calendar = this;
-			var yyyy = date.getFullYear();
-			var MM = date.getMonth();
-			var day = date.getDay();
-			var diff = date.getDate() - day + (day === 0 ? -6 : 1);
-			var weekDate = new Date(date.setDate(diff));
-			var isoWeek = $filter('isoWeek')(date, 1);
-			var dKey = DateTime.dateToKey(weekDate);
-			var wKey = yyyy * 60 + isoWeek;
-			var mKey = yyyy * 12 + MM;
-			var week = calendar.weeks.get(wKey);
-			if (!week) {
-				var days = new Hash('key');
-				new Array(7).fill().map(function(o, i) {
-					var dayDate = new Date(weekDate);
-					dayDate.setDate(weekDate.getDate() + i);
-					var key = DateTime.dateToKey(dayDate);
-					var item = {
-						$today: key === DateTime.today.key,
-						c: i,
-						d: dayDate.getDate(),
-						date: dayDate,
-						key: key,
-					};
-					calendar.days.add(item);
-					days.add(item);
-					return item;
-				});
-				week = {
-					isoWeek: isoWeek,
-					key: dKey,
-					wKey: wKey,
-					mKey: mKey,
-					date: weekDate,
-					days: days,
-				};
-				week = calendar.weeks.add(week);
-			}
-			return week;
-		}
-
-    }]);
 
 }());
 
@@ -1253,35 +1050,90 @@
 
 	var app = angular.module('app');
 
-	app.controller('ContactUsCtrl', ['$scope', 'State', 'View', 'Api', function($scope, State, View, Api) {
+	app.controller('PlannerController', ['$scope', '$location', 'State', 'BookingService', 'View', 'Range', 'store', 'booking', function($scope, $location, State, BookingService, View, Range, store, booking) {
 
 		var state = new State();
-		var state2 = new State();
-		var googlemaps = {};
-		var mapbox = {};
+
+		var plannerOptions = {
+			onWeekDidChange: function(date, week, view) {
+				// console.log('onWeekDidChange.date', date, week, view);
+				booking.model.date = null;
+				booking.model.daytime = null;
+				booking.model.time = null;
+				booking.getDaysPoolByRange(week.from, week.to).then(function(days) {
+					// console.log(days);
+					view.days.each(function(day) {
+						// console.log(day.key);
+						var poolDay = days[day.key];
+						if (poolDay) {
+							day.times = poolDay.times;
+							day.daytimes = poolDay.daytimes;
+							day.closingDay = poolDay.closingDay;
+						} else {
+							day.times = [];
+							day.daytimes = booking.emptyDaytimes;
+						}
+					});
+				});
+			},
+			onDayDidSelect: function(day, daytime, month, view) {
+				$scope.$root.addModal('timesModal', {
+					day: day,
+					daytime: daytime,
+					times: daytime.times,
+
+				}).then(function resolve(time) {
+					view.days.each(function(day) {
+						Object.keys(day.daytimes).forEach(function(key) {
+							day.daytimes[key].active = false;
+							day.daytimes[key].times.forEach(function(time) {
+								time.active = false;
+							});
+						});
+					});
+					time.active = true;
+					daytime.active = true;
+					daytime.time = time;
+					booking.model.date = day.date;
+					booking.model.daytime = daytime;
+					booking.model.time = time;
+
+				}, function reject(data) {
+					console.log('timesModal.reject', data);
+
+				});
+			},
+			onWeekDidSelect: function(week, month, view) {
+				console.log('onWeekDidSelect.week', week);
+			},
+		};
 
 		var publics = {
 			state: state,
-			state2: state2,
-			googlemaps: googlemaps,
-			mapbox: mapbox,
+			store: store,
+			booking: booking,
+			plannerOptions: plannerOptions,
+			onBack: onBack,
+			onSubmit: onSubmit,
 		};
 
-		Object.assign($scope, publics); // todo
+		Object.assign($scope, publics);
 
-		View.current().then(function(view) {
-			$scope.view = view;
-			state.ready();
+		state.ready();
 
-		}, function(error) {
-			state.error(error);
+		function onBack() {
+			$location.path('/reserve/' + store.id);
+		}
 
-		});
-
-		Api.maps.markers().then(function(items) {
-			googlemaps.setMarkers(items);
-			mapbox.setMarkers(items);
-		});
+		function onSubmit() {
+			console.log('PlannerController.onSubmit', booking.model.time.name);
+			if (state.busy()) {
+				BookingService.update(booking.model).then(function(model) {
+					$location.path('/reserve/' + store.id + '/confirm');
+					state.success();
+				});
+			}
+		}
 
     }]);
 
@@ -1294,52 +1146,133 @@
 
 	var app = angular.module('app');
 
-	app.controller('RootCtrl', ['$scope', '$timeout', '$promise', 'Nav', 'Api', 'Range', 'Scrollable', 'AuthService', function($scope, $timeout, $promise, Nav, Api, Range, Scrollable, AuthService) {
+	app.factory('PlannerFactory', ['$filter', 'DateTime', 'Hash', function($filter, DateTime, Hash) {
 
-		var nav = new Nav({
-			onPath: onPath,
-			onNav: onNav,
-		});
-
-		Api.navs.main().then(function(items) {
-			nav.setItems(items);
-
-		}, function(error) {
-			console.log('RootCtrl.error', error);
-
-		});
-
-		function onPath(item) {
-			var path = item.path;
-			// console.log('RootCtrl.onPath', item.$nav.level, path);
-			return path;
+		function Calendar() {
+			this.days = new Hash('key');
+			this.weeks = new Hash('wKey');
 		}
 
-		function onNav(item) {
-			// console.log('RootCtrl.onNav', item.$nav.level, item.$nav.path);
-			Nav.path(item.$nav.path);
-			return false; // returning false disable default link behaviour;
+		var statics = {
+			clearMonth: clearMonth,
+			getDate: getDate,
+			getDay: getDay,
+			getKey: getKey,
+		};
+
+		var publics = {
+			getWeeks: getWeeks,
+			getWeek: getWeek,
+			getWeekByDate: getWeekByDate,
+		};
+
+		angular.extend(Calendar, statics);
+		angular.extend(Calendar.prototype, publics);
+
+		return Calendar;
+
+		// statics
+
+		function clearMonth(month) {
+			month.days.each(function(day) {
+				if (day) {
+					day.hours = 0;
+					day.tasks = new Hash('id');
+				}
+			});
 		}
 
-		function onNavPromise(item) {
-			$scope.selected = item;
-			return $promise(function(promise) {
-				// console.log('RootCtrl.onNavPromise', item.$nav.level, item.$nav.path);
-				$timeout(function() {
-					if (item.items) {
-						item.$nav.addItems({
-							name: "Item",
-						});
-					}
-					promise.resolve();
+		function getDate(day) {
+			if (typeof day.date.getMonth === 'function') {
+				return day.date;
+			} else {
+				return new Date(day.date);
+			}
+		}
+
+		function getDay(days) {
+			var date = new Date(DateTime.today.date);
+			date.setDate(date.getDate() + days);
+			return date;
+		}
+
+		function getKey(date) {
+			return DateTime.dateToKey(date);
+		}
+
+		// publics
+
+		function getWeeks(num) {
+			var calendar = this;
+			calendar.days.removeAll();
+			calendar.weeks.removeAll();
+			calendar.months.removeAll();
+			var i = 0;
+			while (i < num) {
+				var date = new Date();
+				date.setFullYear(DateTime.today.date.getFullYear());
+				date.setMonth(DateTime.today.date.getMonth() + i);
+				date.setDate(1);
+				date.setHours(0);
+				date.setMinutes(0);
+				date.setSeconds(0);
+				var week = calendar.getWeekByDate(date);
+				// console.log('getWeeks', week);
+				i++;
+			}
+			// console.log('getWeeks', calendar.weeks);
+			return calendar.weeks;
+		}
+
+		function getWeek(day) {
+			var calendar = this;
+			var date = getDate(day);
+			var week = calendar.getWeekByDate(date);
+			return week;
+		}
+
+		function getWeekByDate(date) {
+			date = date || new Date();
+			var calendar = this;
+			var yyyy = date.getFullYear();
+			var MM = date.getMonth();
+			var day = date.getDay();
+			var diff = date.getDate() - day + (day === 0 ? -6 : 1);
+			var weekDate = new Date(date.setDate(diff));
+			var isoWeek = $filter('isoWeek')(date, 1);
+			var dKey = DateTime.dateToKey(weekDate);
+			var wKey = yyyy * 60 + isoWeek;
+			var mKey = yyyy * 12 + MM;
+			var week = calendar.weeks.get(wKey);
+			if (!week) {
+				var days = new Hash('key');
+				new Array(7).fill().map(function(o, i) {
+					var dayDate = new Date(weekDate);
+					dayDate.setDate(weekDate.getDate() + i);
+					var key = DateTime.dateToKey(dayDate);
+					var item = {
+						$today: key === DateTime.today.key,
+						c: i,
+						d: dayDate.getDate(),
+						date: dayDate,
+						key: key,
+					};
+					calendar.days.add(item);
+					days.add(item);
+					return item;
 				});
-			}); // a promise always disable default link behaviour;
+				week = {
+					isoWeek: isoWeek,
+					key: dKey,
+					wKey: wKey,
+					mKey: mKey,
+					date: weekDate,
+					days: days,
+				};
+				week = calendar.weeks.add(week);
+			}
+			return week;
 		}
-
-		$scope.nav = nav;
-
-		var scrollable = new Scrollable();
-		$scope.scrollable = scrollable;
 
     }]);
 

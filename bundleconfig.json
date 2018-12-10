@@ -1,5 +1,90 @@
 [{
 	"inputFiles": [
+        "app/app.module.js",
+		"app/app.routes.js",
+		"app/app.modals.js",
+        "app/app.api.js",
+        "app/app.run.js",
+        "app/root.controller.js",
+
+		"app/reserve/booking.service.js",
+		"app/reserve/cancel.modal.js",
+		"app/reserve/canceled.controller.js",
+		"app/reserve/categories.modal.js",
+		"app/reserve/confirm.controller.js",
+		"app/reserve/confirmed.controller.js",
+		"app/reserve/edit.modal.js",
+		"app/reserve/planner.directive.js",
+		"app/reserve/products.modal.js",
+		"app/reserve/reserve.controller.js",
+		"app/reserve/times.modal.js",
+        "app/reserve/planner.controller.js",
+        "app/reserve/planner.factory.js",
+
+        "app/environment/environment.js",
+        "app/environment/environment.local.js",
+        "app/environment/environment.production.js",
+        "app/environment/environment.stage.js"
+    ],
+	"outputFileName": "docs/js/app.js",
+	"minify": {
+		"enabled": true
+	}
+}, {
+	"inputFiles": [
+        "docs/css/app.css"
+    ],
+	"outputFileName": "docs/css/app.css",
+	"minify": {
+		"enabled": true
+	}
+}, {
+	"inputFiles": [
+        "artisan/artisan.module.js",
+
+		"artisan/components/modals/modal.directive.js",
+        "artisan/components/modals/modal.provider.js",
+        "artisan/components/nav/nav.directives.js",
+        "artisan/components/nav/nav.factory.js",
+
+        "artisan/core/animate/animate.factory.js",
+        "artisan/core/datetime/datetime.service.js",
+        "artisan/core/datetime/range.factory.js",
+        "artisan/core/datetime/relative.filter.js",
+        "artisan/core/dom/dom.service.js",
+        "artisan/core/events/events.factory.js",
+        "artisan/core/filters/filters.js",
+        "artisan/core/geom/point.factory.js",
+        "artisan/core/geom/rect.factory.js",
+        "artisan/core/geom/vector.factory.js",
+        "artisan/core/hash/hash.factory.js",
+        "artisan/core/promise/promise.factory.js",
+        "artisan/core/state/state.factory.js",
+        "artisan/core/style/style.factory.js",
+        "artisan/core/utils/utils.service.js",
+
+        "artisan/environment/environment.provider.js",
+
+        "artisan/models/doc.factory.js",
+        "artisan/models/route.factory.js",
+        "artisan/models/view.factory.js",
+
+        "artisan/net/auth/auth.service.js",
+        "artisan/net/bearer/bearer.service.js",
+        "artisan/net/http/http.service.js",
+        "artisan/net/preload/preload.factory.js",
+        "artisan/net/once/once.service.js",
+        "artisan/net/router/router.service.js",
+        "artisan/net/silent/silent.service.js",
+        "artisan/net/storage/storage.service.js",
+        "artisan/net/trust/trust.service.js"
+    ],
+	"outputFileName": "docs/js/artisan.js",
+	"minify": {
+		"enabled": true
+	}
+}, {
+	"inputFiles": [
         "node_modules/angular/angular.js",
         "node_modules/angular-messages/angular-messages.js",
         "node_modules/angular-route/angular-route.js",
@@ -30,104 +115,6 @@
 	}
 }, {
 	"inputFiles": [
-        "artisan/artisan.module.js",
-
-        "artisan/components/canvas/painter.service.js",
-        "artisan/components/expandable/expandable.directive.js",
-        "artisan/components/forms/control.directive.js",
-        "artisan/components/forms/validate.directive.js",
-
-		"artisan/components/modals/modal.directive.js",
-        "artisan/components/modals/modal.provider.js",
-        "artisan/components/nav/nav.directives.js",
-        "artisan/components/nav/nav.factory.js",
-        "artisan/components/popuppable/popuppable.directive.js",
-        "artisan/components/scrollable/scrollable.directive.js",
-        "artisan/components/scrollable/scrollable.factory.js",
-        "artisan/components/video/video.directive.js",
-
-        "artisan/core/animate/animate.factory.js",
-        "artisan/core/datetime/calendar.directive.js",
-        "artisan/core/datetime/calendar.service.js",
-        "artisan/core/datetime/datetime.service.js",
-        "artisan/core/datetime/range.factory.js",
-        "artisan/core/datetime/relative.filter.js",
-        "artisan/core/dom/dom.service.js",
-        "artisan/core/events/events.factory.js",
-        "artisan/core/filters/filters.js",
-        "artisan/core/geom/point.factory.js",
-        "artisan/core/geom/rect.factory.js",
-        "artisan/core/geom/vector.factory.js",
-        "artisan/core/hash/hash.factory.js",
-        "artisan/core/promise/promise.factory.js",
-        "artisan/core/state/state.factory.js",
-        "artisan/core/style/style.factory.js",
-        "artisan/core/utils/utils.service.js",
-
-        "artisan/environment/environment.provider.js",
-
-        "artisan/models/doc.factory.js",
-        "artisan/models/route.factory.js",
-        "artisan/models/view.factory.js",
-
-        "artisan/net/auth/auth.service.js",
-        "artisan/net/bearer/bearer.service.js",
-        "artisan/net/http/http.service.js",
-        "artisan/net/preload/preload.factory.js",
-        "artisan/net/once/once.service.js",
-        "artisan/net/router/router.service.js",
-        "artisan/net/silent/silent.service.js",
-        "artisan/net/storage/storage.service.js",
-        "artisan/net/trust/trust.service.js",
-
-        "artisan/plugins/facebook/facebook.service.js",
-        "artisan/plugins/google/google.service.js",
-        "artisan/plugins/googlemaps/googlemaps.directive.js",
-        "artisan/plugins/googlemaps/googlemaps.service.js",
-        "artisan/plugins/mapbox/mapbox.directive.js",
-        "artisan/plugins/mapbox/mapbox.service.js"
-
-    ],
-	"outputFileName": "docs/js/artisan.js",
-	"minify": {
-		"enabled": true
-	}
-}, {
-	"inputFiles": [
-        "app/app.module.js",
-        "app/app.api.js",
-        "app/app.routes.js",
-        "app/app.run.js",
-
-		"app/services/booking.service.js",
-		"app/services/store.service.js",
-
-		"app/controllers/reserve/cancel.modal.js",
-		"app/controllers/reserve/categories.modal.js",
-		"app/controllers/reserve/confirm.controller.js",
-		"app/controllers/reserve/confirmed.controller.js",
-		"app/controllers/reserve/edit.modal.js",
-        "app/controllers/reserve/planner.controller.js",
-		"app/controllers/reserve/planner.directive.js",
-        "app/controllers/reserve/planner.factory.js",
-		"app/controllers/reserve/products.modal.js",
-		"app/controllers/reserve/reserve.controller.js",
-		"app/controllers/reserve/times.modal.js",
-
-        "app/controllers/contact-us.controller.js",
-        "app/controllers/root.controller.js",
-
-        "app/environment/environment.js",
-        "app/environment/environment.local.js",
-        "app/environment/environment.production.js",
-        "app/environment/environment.stage.js"
-    ],
-	"outputFileName": "docs/js/app.js",
-	"minify": {
-		"enabled": true
-	}
-}, {
-	"inputFiles": [
         "node_modules/animate.css/animate.css",
         "node_modules/jsonformatter/dist/json-formatter.css"
     ],
@@ -140,22 +127,6 @@
         "docs/css/bootstrap.css"
     ],
 	"outputFileName": "docs/css/bootstrap.css",
-	"minify": {
-		"enabled": true
-	}
-}, {
-	"inputFiles": [
-        "docs/css/artisan.css"
-    ],
-	"outputFileName": "docs/css/artisan.css",
-	"minify": {
-		"enabled": true
-	}
-}, {
-	"inputFiles": [
-        "docs/css/app.css"
-    ],
-	"outputFileName": "docs/css/app.css",
 	"minify": {
 		"enabled": true
 	}

@@ -97,7 +97,7 @@
 	line-height: 20px;
 }
 
-@include media-breakpoint-down(lg) {
+@include media-breakpoint-down(md) {
 	.modal {
 		background: white;
 	}

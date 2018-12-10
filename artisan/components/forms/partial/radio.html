@@ -5,8 +5,8 @@
 	</label>
 	<control-messages></control-messages>
 	<div class="input-group" ng-repeat="item in source">
-		<label class="form-check-label">
-			<input type="radio" class="form-check-input" ng-model="$parent.ngModel" name="input-{{field}}" ng-value="item.id" />
+		<label class="form-label-check">
+			<input type="radio" class="form-control-check" ng-model="$parent.ngModel" name="input-{{field}}" ng-value="item.id" />
 			{{item.name}}
 		</label>
 	</div>

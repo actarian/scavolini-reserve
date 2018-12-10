@@ -17,7 +17,7 @@ $padding: calc((100% - 240px) / 9 + 30px);
 		padding-right: $padding;
 	}
 
-	@include media-breakpoint-down(lg) {
+	@include media-breakpoint-down(md) {
 
 		.form-headline {
 			padding-left: 0;

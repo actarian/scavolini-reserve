@@ -5,7 +5,7 @@
 
 	var app = angular.module('app');
 
-	app.config(['$locationProvider', '$routeProvider', '$modalProvider', function($locationProvider, $routeProvider, $modalProvider) {
+	app.config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
 		// HTML5 MODE url writing method (false: #/anchor/use, true: /html5/url/use)
 		// $locationProvider.html5Mode(false);
 		//$locationProvider.hashPrefix(''); /* Back to default: fix ancore sulla stessa pagina https://www.eatalyworld.it/it/chi-siamo/chi-siamo */
@@ -21,7 +21,7 @@
 
 		}).when('/reserve/:storeId', {
 			templateUrl: function() {
-				return 'views/reserve/reserve.html';
+				return 'views/reserve.html';
 			},
 			controller: 'ReserveController',
 			resolve: {
@@ -32,7 +32,7 @@
 
 		}).when('/reserve/:storeId/planner', {
 			templateUrl: function() {
-				return 'views/reserve/planner.html';
+				return 'views/planner.html';
 			},
 			controller: 'PlannerController',
 			resolve: {
@@ -46,7 +46,7 @@
 
 		}).when('/reserve/:storeId/confirm', {
 			templateUrl: function() {
-				return 'views/reserve/confirm.html';
+				return 'views/confirm.html';
 			},
 			controller: 'ConfirmController',
 			resolve: {
@@ -60,7 +60,7 @@
 
 		}).when('/reserve/:storeId/confirmed', {
 			templateUrl: function() {
-				return 'views/reserve/confirmed.html';
+				return 'views/confirmed.html';
 			},
 			controller: 'ConfirmedController',
 			resolve: {
@@ -72,52 +72,23 @@
 				}]
 			},
 
-		}).when('/contact-us', {
+		}).when('/reserve/:storeId/canceled', {
 			templateUrl: function() {
-				return 'views/contact-us.html';
+				return 'views/canceled.html';
 			},
-			controller: 'ContactUsCtrl',
-			// resolve: {
-			//    user: ['Users', function(Users) {
-			//        return Users.isAuthorizedOrGoTo('/home');
-			//    }]
-			// },
+			controller: 'CanceledController',
+			resolve: {
+				store: ['$route', 'Api', function($route, Api) {
+					return Api.store.getById($route.current.params.storeId);
+				}],
+				booking: ['BookingService', function(BookingService) {
+					return BookingService.currentOrGoTo('/');
+				}]
+			},
 
 		});
 
 		$routeProvider.otherwise('/reserve/1');
-
-		$modalProvider.when('categoriesModal', {
-			title: 'Categories modal',
-			templateUrl: 'views/reserve/modals/categories.html',
-			controller: 'CategoriesModal',
-			customClass: '',
-
-		}).when('productsModal', {
-			title: 'Products modal',
-			templateUrl: 'views/reserve/modals/products.html',
-			controller: 'ProductsModal',
-			customClass: '',
-
-		}).when('timesModal', {
-			title: 'Times modal',
-			templateUrl: 'views/reserve/modals/times.html',
-			controller: 'TimesModal',
-			customClass: '',
-
-		}).when('editModal', {
-			title: 'Edit modal',
-			templateUrl: 'views/reserve/modals/edit.html',
-			controller: 'EditModal',
-			customClass: '',
-
-		}).when('cancelModal', {
-			title: 'Cancel modal',
-			templateUrl: 'views/reserve/modals/cancel.html',
-			controller: 'CancelModal',
-			customClass: '',
-
-		});
 
     }]);
 

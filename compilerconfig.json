@@ -1,10 +1,7 @@
 ﻿[{
-    "inputFile": "sass/bootstrap.scss",
-    "outputFile": "docs/css/bootstrap.css"
+	"inputFile": "sass/bootstrap.scss",
+	"outputFile": "docs/css/bootstrap.css"
 }, {
-    "inputFile": "sass/artisan.scss",
-    "outputFile": "docs/css/artisan.css"
-}, {
-    "inputFile": "sass/app.scss",
-    "outputFile": "docs/css/app.css"
+	"inputFile": "sass/app.scss",
+	"outputFile": "docs/css/app.css"
 }]
