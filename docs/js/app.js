@@ -19,9 +19,10 @@
 		// $locationProvider.html5Mode(false);
 		//$locationProvider.hashPrefix(''); /* Back to default: fix ancore sulla stessa pagina https://www.eatalyworld.it/it/chi-siamo/chi-siamo */
 
+		// RESERVE
 		$routeProvider.when('/reserve', {
 			templateUrl: function() {
-				return 'views/reserve.html';
+				return 'views/reserve/reserve.html';
 			},
 			controller: 'ReserveController',
 			resolve: {
@@ -30,7 +31,7 @@
 
 		}).when('/reserve/:storeId', {
 			templateUrl: function() {
-				return 'views/reserve.html';
+				return 'views/reserve/reserve.html';
 			},
 			controller: 'ReserveController',
 			resolve: {
@@ -41,7 +42,7 @@
 
 		}).when('/reserve/:storeId/planner', {
 			templateUrl: function() {
-				return 'views/planner.html';
+				return 'views/reserve/planner.html';
 			},
 			controller: 'PlannerController',
 			resolve: {
@@ -55,7 +56,7 @@
 
 		}).when('/reserve/:storeId/confirm', {
 			templateUrl: function() {
-				return 'views/confirm.html';
+				return 'views/reserve/confirm.html';
 			},
 			controller: 'ConfirmController',
 			resolve: {
@@ -69,7 +70,7 @@
 
 		}).when('/reserve/:storeId/confirmed', {
 			templateUrl: function() {
-				return 'views/confirmed.html';
+				return 'views/reserve/confirmed.html';
 			},
 			controller: 'ConfirmedController',
 			resolve: {
@@ -83,7 +84,7 @@
 
 		}).when('/reserve/:storeId/canceled', {
 			templateUrl: function() {
-				return 'views/canceled.html';
+				return 'views/reserve/canceled.html';
 			},
 			controller: 'CanceledController',
 			resolve: {
@@ -92,6 +93,29 @@
 				}],
 				booking: ['BookingService', function(BookingService) {
 					return BookingService.currentOrGoTo('/');
+				}]
+			},
+
+			// STORE
+		}).when('/store/reserve-options', {
+			templateUrl: function() {
+				return 'views/store/reserve-options.html';
+			},
+			controller: 'ReserveOptionsController',
+			resolve: {
+				store: ['StoreService', function(StoreService) {
+					return StoreService.currentOrGoTo('/');
+				}]
+			},
+
+		}).when('/store/extra-closures', {
+			templateUrl: function() {
+				return 'views/store/extra-closures.html';
+			},
+			controller: 'ExtraClosuresController',
+			resolve: {
+				store: ['StoreService', function(StoreService) {
+					return StoreService.currentOrGoTo('/');
 				}]
 			},
 
@@ -112,34 +136,48 @@
 
 	app.config(['$modalProvider', function($modalProvider) {
 
+		// RESERVE
 		$modalProvider.when('categoriesModal', {
 			title: 'Categories modal',
-			templateUrl: 'views/modals/categories.html',
+			templateUrl: 'views/reserve/modals/categories.html',
 			controller: 'CategoriesModal',
 			customClass: '',
 
 		}).when('productsModal', {
 			title: 'Products modal',
-			templateUrl: 'views/modals/products.html',
+			templateUrl: 'views/reserve/modals/products.html',
 			controller: 'ProductsModal',
 			customClass: '',
 
 		}).when('timesModal', {
 			title: 'Times modal',
-			templateUrl: 'views/modals/times.html',
+			templateUrl: 'views/reserve/modals/times.html',
 			controller: 'TimesModal',
 			customClass: '',
 
 		}).when('editModal', {
 			title: 'Edit modal',
-			templateUrl: 'views/modals/edit.html',
+			templateUrl: 'views/reserve/modals/edit.html',
 			controller: 'EditModal',
 			customClass: '',
 
 		}).when('cancelModal', {
 			title: 'Cancel modal',
-			templateUrl: 'views/modals/cancel.html',
+			templateUrl: 'views/reserve/modals/cancel.html',
 			controller: 'CancelModal',
+			customClass: '',
+
+			// STORE
+		}).when('noticeModal', {
+			title: 'Notice modal',
+			templateUrl: 'views/store/modals/notice.html',
+			controller: 'NoticeModal',
+			customClass: '',
+
+		}).when('anticipationModal', {
+			title: 'Anticipation modal',
+			templateUrl: 'views/store/modals/anticipation.html',
+			controller: 'AnticipationModal',
 			customClass: '',
 
 		});
@@ -159,13 +197,19 @@
 
 		var api = {
 			store: {
+				data: function(storeId) {
+					return Http.get('/store/store.data.json');
+				},
 				getById: function(storeId) {
 					return Http.get('/store/store.json');
+				},
+				getDetailById: function(storeId) {
+					return Http.get('/store/store.detail.json');
 				},
 			},
 			reserve: {
 				data: function(storeId) {
-					return Http.get('/reserve/data.json');
+					return Http.get('/reserve/reserve.data.json');
 				},
 				days: function(storeId, from, to) {
 					return Http.get('/reserve/days.json', { from: from, to: to });
@@ -213,6 +257,10 @@
 
 	app.controller('RootCtrl', ['$scope', '$timeout', '$promise', function($scope, $timeout, $promise) {
 
+		$scope.store = {
+			name: 'Scavolini Store Urbino',
+		};
+
     }]);
 
 }());
@@ -239,7 +287,7 @@
 		},
 	};
 
-	app.factory('BookingService', ['$promise', '$location', 'DateTime', 'Api', 'LocalStorage', 'environment', function($promise, $location, DateTime, Api, storage, environment) {
+	app.factory('BookingService', ['$promise', '$location', 'DateTime', 'Api', 'SessionStorage', 'environment', function($promise, $location, DateTime, Api, storage, environment) {
 
 		function BookingService(options) {
 			Object.assign(this, DefaultBookingService);
@@ -572,7 +620,7 @@
 
 	var app = angular.module('app');
 
-	app.controller('ConfirmController', ['$scope', '$location', 'State', 'BookingService', 'View', 'Range', 'store', 'booking', function($scope, $location, State, BookingService, View, Range, store, booking) {
+	app.controller('ConfirmController', ['$scope', '$location', '$timeout', 'State', 'BookingService', 'View', 'Range', 'store', 'booking', function($scope, $location, $timeout, State, BookingService, View, Range, store, booking) {
 
 		var state = new State();
 
@@ -598,6 +646,9 @@
 				BookingService.update(booking.model).then(function(model) {
 					$location.path('/reserve/' + store.id + '/confirmed');
 					state.success();
+					$timeout(function() {
+						state.ready();
+					}, 600);
 				});
 			}
 		}
@@ -923,7 +974,7 @@
 
 	var app = angular.module('app');
 
-	app.controller('ReserveController', ['$scope', '$location', 'State', 'BookingService', 'View', 'Range', 'store', function($scope, $location, State, BookingService, View, Range, store) {
+	app.controller('ReserveController', ['$scope', '$location', '$timeout', 'State', 'BookingService', 'View', 'Range', 'store', function($scope, $location, $timeout, State, BookingService, View, Range, store) {
 
 		var state = new State();
 
@@ -982,6 +1033,9 @@
 				BookingService.update(booking.model).then(function(model) {
 					$location.path('/reserve/' + store.id + '/planner');
 					state.success();
+					$timeout(function() {
+						state.ready();
+					}, 600);
 				});
 			}
 		}
@@ -1050,7 +1104,7 @@
 
 	var app = angular.module('app');
 
-	app.controller('PlannerController', ['$scope', '$location', 'State', 'BookingService', 'View', 'Range', 'store', 'booking', function($scope, $location, State, BookingService, View, Range, store, booking) {
+	app.controller('PlannerController', ['$scope', '$location', '$timeout', 'State', 'BookingService', 'View', 'Range', 'store', 'booking', function($scope, $location, $timeout, State, BookingService, View, Range, store, booking) {
 
 		var state = new State();
 
@@ -1131,6 +1185,9 @@
 				BookingService.update(booking.model).then(function(model) {
 					$location.path('/reserve/' + store.id + '/confirm');
 					state.success();
+					$timeout(function() {
+						state.ready();
+					}, 600);
 				});
 			}
 		}
@@ -1272,6 +1329,416 @@
 				week = calendar.weeks.add(week);
 			}
 			return week;
+		}
+
+    }]);
+
+}());
+
+/* global angular */
+
+(function() {
+	"use strict";
+
+	var app = angular.module('app');
+
+	app.controller('AnticipationModal', ['$scope', 'State', function($scope, State) {
+
+		var state = new State();
+
+		var modal = $scope.modal;
+
+		var params = $scope.params ? $scope.params : {};
+		var items = params.anticipations || [];
+
+		var publics = {
+			state: state,
+			items: items,
+			onSelect: onSelect,
+			onSubmit: onSubmit,
+		};
+
+		Object.assign($scope, publics);
+
+		state.ready();
+
+		function onSelect(item) {
+			items.forEach(function(x) {
+				x.active = false;
+			});
+			item.active = true;
+		}
+
+		function onSubmit() {
+			console.log('AnticipationModal.onSubmit');
+			modal.resolve(items.find(function(x) {
+				return x.active;
+			}));
+		}
+
+	}]);
+
+}());
+
+/* global angular */
+
+(function() {
+	"use strict";
+
+	var app = angular.module('app');
+
+	app.controller('ExtraClosuresController', ['$scope', '$location', 'State', 'StoreService', 'View', 'Range', 'store', function($scope, $location, State, StoreService, View, Range, store) {
+
+		var state = new State();
+
+		var publics = {
+			state: state,
+			store: store,
+			onSubmit: onSubmit,
+		};
+
+		Object.assign($scope, publics);
+
+		state.ready();
+
+		function onSubmit() {
+			console.log('ExtraClosuresController.onSubmit');
+			if (state.busy()) {
+				/*
+				StoreService.update(booking.model).then(function(model) {
+					$location.path('/reserve/' + store.id + '/confirm');
+					state.success();
+				});
+				*/
+			}
+		}
+
+    }]);
+
+}());
+
+/* global angular */
+
+(function() {
+	"use strict";
+
+	var app = angular.module('app');
+
+	app.controller('NoticeModal', ['$scope', 'State', function($scope, State) {
+
+		var state = new State();
+
+		var modal = $scope.modal;
+
+		var params = $scope.params ? $scope.params : {};
+		var items = params.notices || [];
+
+		var publics = {
+			state: state,
+			items: items,
+			onSelect: onSelect,
+			onSubmit: onSubmit,
+		};
+
+		Object.assign($scope, publics);
+
+		state.ready();
+
+		function onSelect(item) {
+			items.forEach(function(x) {
+				x.active = false;
+			});
+			item.active = true;
+		}
+
+		function onSubmit() {
+			console.log('NoticeModal.onSubmit');
+			modal.resolve(items.find(function(x) {
+				return x.active;
+			}));
+		}
+
+	}]);
+
+}());
+
+/* global angular */
+
+(function() {
+	"use strict";
+
+	var app = angular.module('app');
+
+	app.controller('ReserveOptionsController', ['$scope', '$location', '$timeout', 'State', 'StoreService', 'View', 'Range', 'store', function($scope, $location, $timeout, State, StoreService, View, Range, store) {
+
+		var state = new State();
+
+		var model = new StoreService(store);
+
+		var publics = {
+			state: state,
+			store: store,
+			model: model,
+			onSelectAll: onSelectAll,
+			onDeselectAll: onDeselectAll,
+			onSelectNotice: onSelectNotice,
+			onSelectAnticipation: onSelectAnticipation,
+			dayHasTime: dayHasTime,
+			onDayTimeDidChange: onDayTimeDidChange,
+			onSubmit: onSubmit,
+		};
+
+		Object.assign($scope, publics);
+
+		state.ready();
+
+		function onSelectAll() {
+			model.days.forEach(function(day) {
+				day.times = [].concat.apply([], model.daytimes.map(function(daytime) {
+					return daytime.times.map(function(time) {
+						return time.id;
+					});
+				}));
+			});
+			state.dirty = true;
+		}
+
+		function onDeselectAll() {
+			model.days.forEach(function(day) {
+				day.times = [];
+			});
+			state.dirty = true;
+		}
+
+		function onSelectNotice() {
+			console.log('ReserveOptionsController.onSelectNotice');
+			$scope.$root.addModal('noticeModal', model).then(function resolve(data) {
+				console.log('ReserveOptionsController.resolve', data);
+				model.notice = data;
+				state.dirty = true;
+
+			}, function reject(data) {
+				console.log('ReserveOptionsController.reject', data);
+
+			});
+		}
+
+		function onSelectAnticipation() {
+			console.log('ReserveOptionsController.onSelectAnticipation');
+			$scope.$root.addModal('anticipationModal', model).then(function resolve(data) {
+				console.log('ReserveOptionsController.resolve', data);
+				model.anticipation = data;
+				state.dirty = true;
+
+			}, function reject(data) {
+				console.log('ReserveOptionsController.reject', data);
+
+			});
+		}
+
+		function dayHasTime(day, time) {
+			return day.times.indexOf(time.id) !== -1;
+		}
+
+		function onDayTimeDidChange(day, time) {
+			var i = day.times.indexOf(time.id);
+			if (i !== -1) {
+				day.times.splice(i, 1);
+			} else {
+				day.times.push(time.id);
+			}
+			state.dirty = true;
+		}
+
+		function onSubmit() {
+			console.log('ReserveOptionsController.onSubmit');
+			if (state.busy()) {
+				StoreService.update(model).then(
+					function(model) {
+						state.success();
+						$timeout(function() {
+							state.ready();
+						}, 600);
+					},
+					function(error) {
+						console.log(error);
+					}
+				);
+			}
+		}
+
+    }]);
+
+}());
+
+/* global angular */
+
+(function() {
+	"use strict";
+
+	var app = angular.module('app');
+
+	app.factory('StoreService', ['$promise', '$location', 'DateTime', 'Api', 'SessionStorage', 'environment', function($promise, $location, DateTime, Api, storage, environment) {
+
+		function StoreService(options) {
+			var notices = new Array(15).fill(null).map(function(x, i) {
+				return { id: i + 1, name: (i + 1).toString() + ' gg' };
+			});
+			var anticipations = new Array(12).fill(null).map(function(x, i) {
+				return { id: i + 1, name: (30 + i * 30).toString() + ' gg' };
+			});
+			if (options) {
+				options = angular.copy(options);
+				Object.assign(this, options);
+				this.days.forEach(function(day) {
+					var date = new Date();
+					var d = date.getDay();
+					var diff = date.getDate() - d + day.day; // + (d === 0 ? -6 : 1); // adjust when day is sunday
+					date = new Date(date.setDate(diff));
+					day.date = date;
+				});
+			}
+			if (this.notice) {
+				var nid = this.notice.id;
+				var notice = notices.find(function(x) {
+					return x.id === nid;
+				});
+				if (notice) {
+					notice.active = true;
+					this.notice = notice;
+				}
+			}
+			if (this.anticipation) {
+				var aid = this.anticipation.id;
+				var anticipation = anticipations.find(function(x) {
+					return x.id === aid;
+				});
+				if (anticipation) {
+					anticipation.active = true;
+					this.anticipation = anticipation;
+				}
+			}
+			this.notices = notices;
+			this.anticipations = anticipations;
+		}
+
+		var statics = {
+			current: getCurrent,
+			currentOrGoTo: currentOrGoTo,
+			update: update,
+		};
+
+		var publics = {
+			deepCopy: deepCopy,
+		};
+
+		Object.assign(StoreService, statics);
+		Object.assign(StoreService.prototype, publics);
+
+		return StoreService;
+
+		// static methods
+
+		function getCurrent() {
+			return $promise(function(promise) {
+				if (StoreService.store) {
+					promise.resolve(StoreService.store);
+
+				} else if (storage.exist('store')) {
+					var store = storage.get('store');
+					store = new StoreService(store);
+					StoreService.store = store;
+					promise.resolve(store);
+
+				} else {
+					Api.store.data().then(function(data) {
+						var store = new StoreService(data);
+						StoreService.store = store;
+						promise.resolve(store);
+
+					}, function(error) {
+						promise.reject(error);
+
+					});
+				}
+			});
+		}
+
+		function currentOrGoTo(path) {
+			return $promise(function(promise) {
+				StoreService.current().then(function(store) {
+					if (store) {
+						promise.resolve(store);
+					} else {
+						$location.$$lastRequestedPath = $location.path(); // $route.current.$$route.originalPath;
+						$location.path(path);
+					}
+				}, function(error) {
+					promise.reject(error);
+				});
+			});
+		}
+
+		function update(model) {
+			return $promise(function(promise) {
+				if (model) {
+					storage.set('store', model);
+					promise.resolve(model);
+				} else {
+					promise.reject(error);
+				}
+			});
+		}
+
+		function cloneObject() {
+			var options, name, src, copy, copyIsArray, clone, target = arguments[0] || {},
+				i = 1,
+				length = arguments.length,
+				deep = false;
+			if (typeof target === 'boolean') {
+				deep = target;
+				target = arguments[i] || {};
+				i++;
+			}
+			if (typeof target !== 'object' && typeof target !== 'function') {
+				target = {};
+			}
+			if (i === length) {
+				target = this;
+				i--;
+			}
+			for (; i < length; i++) {
+				if ((options = arguments[i])) {
+					for (name in options) {
+						copy = options[name];
+						if (target === copy) {
+							continue;
+						}
+						if (deep && copy && (typeof copy === 'object' || (copyIsArray = Array.isArray(copy)))) {
+							src = target[name];
+							if (copyIsArray && !Array.isArray(src)) {
+								clone = [];
+							} else if (!copyIsArray && typeof(src) !== 'object') {
+								clone = {};
+							} else {
+								clone = src;
+							}
+							copyIsArray = false;
+							target[name] = cloneObject(deep, clone, copy);
+						} else if (copy !== undefined) {
+							target[name] = copy;
+						}
+					}
+				}
+			}
+			return target;
+		}
+
+		// prototype methods
+
+		function deepCopy() {
+			var copy = angular.copy(this); // cloneObject(true, this, {});
+			return new StoreService(copy);
 		}
 
     }]);

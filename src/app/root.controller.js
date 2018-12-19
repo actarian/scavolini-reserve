@@ -7,6 +7,10 @@
 
 	app.controller('RootCtrl', ['$scope', '$timeout', '$promise', function($scope, $timeout, $promise) {
 
+		$scope.store = {
+			name: 'Scavolini Store Urbino',
+		};
+
     }]);
 
 }());

@@ -65,10 +65,10 @@
 		*/
 		function RouterOnChangeError(event, current, previous, rejection) {
 			$previous = null;
-			$current = previous.$$route || null;
+			$current = previous ? previous.$$route : null;
 			$next = null;
 			RouterSetControllers();
-			// console.log('Router.RouterOnChangeError', '$previous', $previous, '$current', $current, '$next', $next);
+			console.log('Router.RouterOnChangeError', '$previous', $previous, '$current', $current, '$next', $next);
 		}
 
 		/*

@@ -1,0 +1,139 @@
+[{
+	"inputFiles": [
+        "src/app/app.module.js",
+		"src/app/app.routes.js",
+		"src/app/app.modals.js",
+        "src/app/app.api.js",
+        "src/app/app.run.js",
+        "src/app/root.controller.js",
+
+		"src/app/reserve/booking.service.js",
+		"src/app/reserve/cancel.modal.js",
+		"src/app/reserve/canceled.controller.js",
+		"src/app/reserve/categories.modal.js",
+		"src/app/reserve/confirm.controller.js",
+		"src/app/reserve/confirmed.controller.js",
+		"src/app/reserve/edit.modal.js",
+		"src/app/reserve/planner.directive.js",
+		"src/app/reserve/products.modal.js",
+		"src/app/reserve/reserve.controller.js",
+		"src/app/reserve/times.modal.js",
+        "src/app/reserve/planner.controller.js",
+        "src/app/reserve/planner.factory.js",
+
+		"src/app/store/anticipation.modal.js",
+		"src/app/store/extra-closures.controller.js",
+		"src/app/store/notice.modal.js",
+		"src/app/store/reserve-options.controller.js",
+		"src/app/store/store.service.js",
+
+        "src/app/environment/environment.js",
+        "src/app/environment/environment.local.js",
+        "src/app/environment/environment.production.js",
+        "src/app/environment/environment.stage.js"
+    ],
+	"outputFileName": "docs/js/app.js",
+	"minify": {
+		"enabled": true
+	}
+}, {
+	"inputFiles": [
+        "docs/css/app.css"
+    ],
+	"outputFileName": "docs/css/app.css",
+	"minify": {
+		"enabled": true
+	}
+}, {
+	"inputFiles": [
+        "src/artisan/artisan.module.js",
+
+		"src/artisan/components/modals/modal.directive.js",
+        "src/artisan/components/modals/modal.provider.js",
+        "src/artisan/components/nav/nav.directives.js",
+        "src/artisan/components/nav/nav.factory.js",
+
+        "src/artisan/core/animate/animate.factory.js",
+        "src/artisan/core/datetime/datetime.service.js",
+        "src/artisan/core/datetime/range.factory.js",
+        "src/artisan/core/datetime/relative.filter.js",
+        "src/artisan/core/dom/dom.service.js",
+        "src/artisan/core/events/events.factory.js",
+        "src/artisan/core/filters/filters.js",
+        "src/artisan/core/geom/point.factory.js",
+        "src/artisan/core/geom/rect.factory.js",
+        "src/artisan/core/geom/vector.factory.js",
+        "src/artisan/core/hash/hash.factory.js",
+        "src/artisan/core/promise/promise.factory.js",
+        "src/artisan/core/state/state.factory.js",
+        "src/artisan/core/style/style.factory.js",
+        "src/artisan/core/utils/utils.service.js",
+
+        "src/artisan/environment/environment.provider.js",
+
+        "src/artisan/models/doc.factory.js",
+        "src/artisan/models/route.factory.js",
+        "src/artisan/models/view.factory.js",
+
+        "src/artisan/net/auth/auth.service.js",
+        "src/artisan/net/bearer/bearer.service.js",
+        "src/artisan/net/http/http.service.js",
+        "src/artisan/net/preload/preload.factory.js",
+        "src/artisan/net/once/once.service.js",
+        "src/artisan/net/router/router.service.js",
+        "src/artisan/net/silent/silent.service.js",
+        "src/artisan/net/storage/storage.service.js",
+        "src/artisan/net/trust/trust.service.js"
+    ],
+	"outputFileName": "docs/js/artisan.js",
+	"minify": {
+		"enabled": true
+	}
+}, {
+	"inputFiles": [
+        "node_modules/angular/angular.js",
+        "node_modules/angular-messages/angular-messages.js",
+        "node_modules/angular-route/angular-route.js",
+        "node_modules/angular-sanitize/angular-sanitize.js",
+        "node_modules/jsonformatter/dist/json-formatter.js",
+        "node_modules/dynamics.js/lib/dynamics.js",
+        "node_modules/gmaps-marker-clusterer/src/markerclusterer.js"
+    ],
+	"outputFileName": "docs/js/vendors.js",
+	"minify": {
+		"enabled": true
+	}
+}, {
+	"inputFiles": [
+        "node_modules/angular-i18n/angular-locale_it-it.js"
+    ],
+	"outputFileName": "docs/js/locale/it.js",
+	"minify": {
+		"enabled": true
+	}
+}, {
+	"inputFiles": [
+        "node_modules/angular-i18n/angular-locale_en.js"
+    ],
+	"outputFileName": "docs/js/locale/en.js",
+	"minify": {
+		"enabled": true
+	}
+}, {
+	"inputFiles": [
+        "node_modules/animate.css/animate.css",
+        "node_modules/jsonformatter/dist/json-formatter.css"
+    ],
+	"outputFileName": "docs/css/vendors.css",
+	"minify": {
+		"enabled": true
+	}
+}, {
+	"inputFiles": [
+        "docs/css/bootstrap.css"
+    ],
+	"outputFileName": "docs/css/bootstrap.css",
+	"minify": {
+		"enabled": true
+	}
+}]

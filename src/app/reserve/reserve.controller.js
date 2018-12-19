@@ -5,7 +5,7 @@
 
 	var app = angular.module('app');
 
-	app.controller('ReserveController', ['$scope', '$location', 'State', 'BookingService', 'View', 'Range', 'store', function($scope, $location, State, BookingService, View, Range, store) {
+	app.controller('ReserveController', ['$scope', '$location', '$timeout', 'State', 'BookingService', 'View', 'Range', 'store', function($scope, $location, $timeout, State, BookingService, View, Range, store) {
 
 		var state = new State();
 
@@ -64,6 +64,9 @@
 				BookingService.update(booking.model).then(function(model) {
 					$location.path('/reserve/' + store.id + '/planner');
 					state.success();
+					$timeout(function() {
+						state.ready();
+					}, 600);
 				});
 			}
 		}

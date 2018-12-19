@@ -20,7 +20,7 @@
 		},
 	};
 
-	app.factory('BookingService', ['$promise', '$location', 'DateTime', 'Api', 'LocalStorage', 'environment', function($promise, $location, DateTime, Api, storage, environment) {
+	app.factory('BookingService', ['$promise', '$location', 'DateTime', 'Api', 'SessionStorage', 'environment', function($promise, $location, DateTime, Api, storage, environment) {
 
 		function BookingService(options) {
 			Object.assign(this, DefaultBookingService);

@@ -637,34 +637,6 @@ Scrollbar
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap; }
-  .nav-select .radio {
-    display: block;
-    position: relative;
-    min-width: 70px;
-    -webkit-box-flex: 0;
-        -ms-flex: 0 0 70px;
-            flex: 0 0 70px; }
-    .nav-select .radio:before, .nav-select .radio:after {
-      content: '';
-      display: block;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      -webkit-transform: translateX(-50%) translateY(-50%);
-              transform: translateX(-50%) translateY(-50%);
-      -webkit-transition: all ease-in-out 350ms;
-      transition: all ease-in-out 350ms; }
-    .nav-select .radio:before {
-      width: 20px;
-      height: 20px;
-      border-radius: 10px;
-      border: 2px solid #c7c6c4; }
-    .nav-select .radio:after {
-      width: 12px;
-      height: 12px;
-      border-radius: 6px;
-      background: #2b2c2e;
-      opacity: 0; }
   .nav-select li {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -692,6 +664,45 @@ Scrollbar
       color: #28292b; }
       .nav-select li.active .radio:after {
         opacity: 1; }
+
+.radio {
+  display: block;
+  position: relative;
+  min-width: 70px;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 70px;
+          flex: 0 0 70px; }
+  .radio:before, .radio:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+            transform: translateX(-50%) translateY(-50%);
+    -webkit-transition: all ease-in-out 350ms;
+    transition: all ease-in-out 350ms; }
+  .radio:before {
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    border: 2px solid #c7c6c4; }
+  .radio:after {
+    width: 12px;
+    height: 12px;
+    border-radius: 6px;
+    background: #2b2c2e;
+    opacity: 0; }
+  .radio:hover:before, .radio:active:before {
+    border-color: #2b2c2e; }
+  input:checked + .radio:after {
+    opacity: 1; }
+
+input[type='radio'],
+input[type='checkbox'] {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none; }
 
 [ng-click],
 [link-to],
@@ -1201,12 +1212,17 @@ Scrollbar
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
   border-bottom: 1px solid #d6d6d6;
   max-width: calc(100vw - 30px); }
   .form-group-cta label {
     font-size: 13px;
     color: #888888;
-    margin: 0; }
+    margin: 0;
+    -webkit-box-flex: 1;
+        -ms-flex: 1 0 100%;
+            flex: 1 0 100%; }
   .form-group-cta .content {
     min-width: calc(100% - 110px);
     -webkit-box-flex: 1;
@@ -1872,6 +1888,72 @@ header {
 
 .red {
   color: #c30000; }
+
+.section-options .form-headline {
+  margin-top: 40px;
+  margin-bottom: 40px; }
+
+.section-options .h1 {
+  font-size: 36px;
+  font-weight: 400;
+  color: #28292b;
+  letter-spacing: -1px; }
+
+.section-options .form-action {
+  padding-top: 0; }
+
+.options {
+  max-width: calc(100vw - 30px);
+  overflow-y: hidden;
+  overflow-x: auto; }
+  .options .week {
+    display: block;
+    width: 100%;
+    min-width: 1200px; }
+    .options .week > .daytime > .week-row {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+          -ms-flex-direction: row;
+              flex-direction: row;
+      -webkit-box-pack: justify;
+          -ms-flex-pack: justify;
+              justify-content: space-between;
+      -webkit-box-align: center;
+          -ms-flex-align: center;
+              align-items: center;
+      border-bottom: 1px solid #d6d6d6;
+      min-height: 55px; }
+      .options .week > .daytime > .week-row > .cell {
+        display: block;
+        position: relative;
+        max-width: calc((100% - 240px) / 9);
+        -webkit-box-flex: 0;
+            -ms-flex: 0 0 calc((100% - 240px) / 9);
+                flex: 0 0 calc((100% - 240px) / 9); }
+      .options .week > .daytime > .week-row .cell + .cell {
+        margin-left: 30px; }
+      .options .week > .daytime > .week-row:first-child {
+        border-bottom: 1px solid #28292b;
+        min-height: 40px; }
+    .options .week > .daytime + .daytime {
+      margin-top: 30px; }
+  .options .name {
+    font-size: 14px;
+    line-height: 24px;
+    color: #888888;
+    text-transform: uppercase; }
+  .options .day,
+  .options .time {
+    font-size: 18px;
+    line-height: 24px;
+    font-weight: 400;
+    color: #28292b;
+    text-transform: uppercase; }
+  .options .day {
+    text-align: center; }
 
 html,
 body {

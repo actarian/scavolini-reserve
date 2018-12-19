@@ -1,0 +1,88 @@
+@import "colors";
+@import "variables";
+
+.section-options {
+
+	.form-headline {
+		margin-top: 40px;
+		margin-bottom: 40px;
+	}
+
+	.h1 {
+		font-size: 36px;
+		font-weight: 400;
+		color: #28292b;
+		letter-spacing: -1px;
+	}
+
+	.form-action {
+		padding-top: 0;
+	}
+
+}
+
+.options {
+	max-width: calc(100vw - 30px);
+	overflow-y: hidden;
+	overflow-x: auto;
+
+	.week {
+		display: block;
+		width: 100%;
+		min-width: 1200px;
+
+		&>.daytime {
+
+			&>.week-row {
+				display: flex;
+				flex-direction: row;
+				justify-content: space-between;
+				align-items: center;
+				border-bottom: 1px solid #d6d6d6;
+				min-height: 55px;
+
+				&>.cell {
+					display: block;
+					position: relative;
+					max-width: $width;
+					flex: 0 0 $width;
+				}
+
+				.cell+.cell {
+					margin-left: 30px;
+				}
+
+				&:first-child {
+					border-bottom: 1px solid #28292b;
+					min-height: 40px;
+				}
+			}
+		}
+
+		&>.daytime+.daytime {
+			margin-top: 30px;
+		}
+
+	}
+
+	.name {
+		font-size: 14px;
+		line-height: 24px;
+		color: #888888;
+		text-transform: uppercase;
+	}
+
+	.day,
+	.time {
+		font-size: 18px;
+		line-height: 24px;
+		font-weight: 400;
+		color: #28292b;
+		text-transform: uppercase;
+	}
+
+	.day {
+		text-align: center;
+	}
+
+}

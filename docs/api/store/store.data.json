@@ -1,0 +1,80 @@
+{
+	"id": 1,
+	"name": "Scavolini Store Milano Missori",
+	"address": "Piazza Missori 2, 20122 - Milano (MI)",
+	"daytimes": [
+		{
+			"id": 1,
+			"name": "Mattino",
+			"description": "9:30 - 12:30",
+			"times": [
+				{ "daytime": 1, "id": 1, "name": "9:30 - 10:30" },
+				{ "daytime": 1, "id": 2, "name": "10:30 - 11:30" },
+				{ "daytime": 1, "id": 3, "name": "11:30 - 12:30" }
+			]
+		},
+		{
+			"id": 2,
+			"name": "Pomeriggio",
+			"description": "15:30 - 19:30",
+			"times": [
+				{ "daytime": 2, "id": 4, "name": "15:30 - 16:30" },
+				{ "daytime": 2, "id": 5, "name": "16:30 - 17:30" },
+				{ "daytime": 2, "id": 6, "name": "17:30 - 18:30" },
+				{ "daytime": 2, "id": 7, "name": "18:30 - 19:30" }
+			]
+		}
+	],
+	"days": [
+		{
+			"id": 1,
+			"name": "Lunedì",
+			"day": 1,
+			"times": [1, 2, 3]
+		},
+		{
+			"id": 2,
+			"name": "Martedì",
+			"day": 2,
+			"times": [4, 5, 6, 7]
+		},
+		{
+			"id": 3,
+			"name": "Mercoledì",
+			"day": 3,
+			"times": [1, 2, 3, 4, 5, 6, 7]
+		},
+		{
+			"id": 4,
+			"name": "Giovedì",
+			"day": 4,
+			"times": [1, 2, 3]
+		},
+		{
+			"id": 5,
+			"name": "Venerdì",
+			"day": 5,
+			"times": [4, 5, 6, 7]
+		},
+		{
+			"id": 6,
+			"name": "Sabato",
+			"day": 6,
+			"times": [1, 2, 3]
+		},
+		{
+			"id": 7,
+			"name": "Domenica",
+			"day": 0,
+			"times": []
+		}
+	],
+	"notice": {
+		"id": 2,
+		"name": "2"
+	},
+	"anticipation": {
+		"id": 6,
+		"name": "180"
+	}
+}

@@ -10,9 +10,10 @@
 		// $locationProvider.html5Mode(false);
 		//$locationProvider.hashPrefix(''); /* Back to default: fix ancore sulla stessa pagina https://www.eatalyworld.it/it/chi-siamo/chi-siamo */
 
+		// RESERVE
 		$routeProvider.when('/reserve', {
 			templateUrl: function() {
-				return 'views/reserve.html';
+				return 'views/reserve/reserve.html';
 			},
 			controller: 'ReserveController',
 			resolve: {
@@ -21,7 +22,7 @@
 
 		}).when('/reserve/:storeId', {
 			templateUrl: function() {
-				return 'views/reserve.html';
+				return 'views/reserve/reserve.html';
 			},
 			controller: 'ReserveController',
 			resolve: {
@@ -32,7 +33,7 @@
 
 		}).when('/reserve/:storeId/planner', {
 			templateUrl: function() {
-				return 'views/planner.html';
+				return 'views/reserve/planner.html';
 			},
 			controller: 'PlannerController',
 			resolve: {
@@ -46,7 +47,7 @@
 
 		}).when('/reserve/:storeId/confirm', {
 			templateUrl: function() {
-				return 'views/confirm.html';
+				return 'views/reserve/confirm.html';
 			},
 			controller: 'ConfirmController',
 			resolve: {
@@ -60,7 +61,7 @@
 
 		}).when('/reserve/:storeId/confirmed', {
 			templateUrl: function() {
-				return 'views/confirmed.html';
+				return 'views/reserve/confirmed.html';
 			},
 			controller: 'ConfirmedController',
 			resolve: {
@@ -74,7 +75,7 @@
 
 		}).when('/reserve/:storeId/canceled', {
 			templateUrl: function() {
-				return 'views/canceled.html';
+				return 'views/reserve/canceled.html';
 			},
 			controller: 'CanceledController',
 			resolve: {
@@ -83,6 +84,29 @@
 				}],
 				booking: ['BookingService', function(BookingService) {
 					return BookingService.currentOrGoTo('/');
+				}]
+			},
+
+			// STORE
+		}).when('/store/reserve-options', {
+			templateUrl: function() {
+				return 'views/store/reserve-options.html';
+			},
+			controller: 'ReserveOptionsController',
+			resolve: {
+				store: ['StoreService', function(StoreService) {
+					return StoreService.currentOrGoTo('/');
+				}]
+			},
+
+		}).when('/store/extra-closures', {
+			templateUrl: function() {
+				return 'views/store/extra-closures.html';
+			},
+			controller: 'ExtraClosuresController',
+			resolve: {
+				store: ['StoreService', function(StoreService) {
+					return StoreService.currentOrGoTo('/');
 				}]
 			},
 

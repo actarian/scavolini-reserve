@@ -1,0 +1,77 @@
+<section class="section section-options">
+	<div class="container">
+		<form name="view.form" role="form" novalidate autocomplete="off" ng-submit="view.form.$valid && onSubmit()" ng-keyup="$event.keyCode == 13 && view.form.$valid && onSubmit()">
+
+			<input type="hidden" name="time" ng-model="state.dirty" required />
+
+			<div class="form-headline">
+				<div class="h1">Vorrei ricevere prenotazioni nei seguenti orari</div>
+				<button class="btn btn-link" type="button" ng-click="onDeselectAll()"><span>Deseleziona tutto</span></button>
+				<button class="btn btn-link" type="button" ng-click="onSelectAll()"><span>Seleziona tutto</span></button>
+			</div>
+
+			<div ng-include src="'partials/options'"></div>
+
+			<div class="form-headline">
+				<div class="h1">Vorrei ricevere prenotazioni</div>
+			</div>
+
+			<div class="form-action form-action-inline">
+				<div class="form-group form-group-cta">
+					<label>Con un preavviso minimo di</label>
+					<input type="hidden" name="category" ng-model="model.notice" required />
+					<div class="content">
+						<div class="title"><span ng-bind="model.notice.name"></span></div>
+					</div>
+					<div class="cta">
+						<button class="btn btn-link" type="button" ng-click="onSelectNotice()"><span>Modifica</span></button>
+					</div>
+				</div>
+				<div class="form-group form-group-cta">
+					<label>Con un anticipo massimo di</label>
+					<input type="hidden" name="category" ng-model="model.anticipation" required />
+					<div class="content">
+						<div class="title"><span ng-bind="model.anticipation.name"></span></div>
+					</div>
+					<div class="cta">
+						<button class="btn btn-link" type="button" ng-click="onSelectAnticipation()"><span>Modifica</span></button>
+					</div>
+				</div>
+				<button type="submit" class="btn btn-primary animated infinite" ng-class="state.classes({
+					busy: 'bounce', error: 'shake', success: 'pulse'
+				})" ng-disabled="view.form.$invalid || state.isBusy"><span>Salva le tue preferenze</span></button>
+			</div>
+		</form>
+	</div>
+</section>
+
+<!-- OPTIONS -->
+<script type="text/ng-template" id="partials/options">
+	<div class="options">
+		<div class="week">
+			<div class="daytime" ng-repeat="daytime in model.daytimes track by $index">
+				<div class="week-row">
+					<div class="cell">
+						<div class="name" ng-bind="daytime.name"></div>
+					</div>
+					<div class="cell" ng-repeat="day in model.days track by $index">
+						<div class="day" ng-bind="day.date | date : 'EEEE' | capitalize"></div>
+					</div>
+				</div>
+				<div class="week-row" ng-repeat="time in daytime.times track by $index">
+					<div class="cell">
+						<div class="time" ng-bind="time.name"></div>
+					</div>
+					<div class="cell" ng-repeat="day in model.days track by $index">
+						<input type="checkbox" ng-checked="dayHasTime(day, time)">
+						<div class="radio" ng-click="onDayTimeDidChange(day, time)"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</script>
+
+<!--
+<json-formatter json="model"></json-formatter>
+-->
