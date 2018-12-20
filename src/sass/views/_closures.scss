@@ -1,0 +1,84 @@
+@import "colors";
+@import "variables";
+
+.section-closures {
+
+	.form-headline {
+		margin-top: 40px;
+		margin-bottom: 40px;
+	}
+
+	.h1 {
+		font-size: 36px;
+		font-weight: 400;
+		color: #28292b;
+		letter-spacing: -1px;
+	}
+
+	.form-action {
+		padding-top: 0;
+		margin-bottom: 80px;
+	}
+}
+
+$width: calc(25% - 15px);
+$padding: 0 15px;
+
+.closures {
+	max-width: calc(100vw - 30px);
+	display: block;
+	width: 100%;
+	min-width: 1200px;
+
+	&>.closure-row {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+		border-bottom: 1px solid #d6d6d6;
+		min-height: 55px;
+
+		&>.cell {
+			display: block;
+			position: relative;
+			max-width: $width;
+			flex: 0 0 $width;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			overflow: hidden;
+			text-align: left;
+			font-size: 18px;
+			font-weight: 400;
+			line-height: 24px;
+			color: #28292b;
+
+			&:last-child {
+				text-align: center;
+			}
+		}
+
+		.cell+.cell {
+			margin-left: 30px;
+		}
+
+		&:first-child {
+			border-bottom: 1px solid #28292b;
+			min-height: 40px;
+		}
+	}
+
+	&>.closure-row+.closure-row {
+		margin-top: 30px;
+	}
+
+	.name {
+		font-size: 14px;
+		line-height: 24px;
+		color: #888888;
+		text-transform: uppercase;
+	}
+
+	.description {
+		color: #aaaaab;
+	}
+}

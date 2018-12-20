@@ -76,5 +76,31 @@
 	"anticipation": {
 		"id": 6,
 		"name": "180"
-	}
+	},
+	"extraClosures": [{
+		"id": 1,
+		"date": "2018-12-25T12:00:00.000Z",
+		"daytime": 0,
+		"description": "Natale"
+	}, {
+		"id": 2,
+		"date": "2018-12-26T12:00:00.000Z",
+		"daytime": 0,
+		"description": "Santo Stefano"
+	}, {
+		"id": 3,
+		"date": "2019-01-01T12:00:00.000Z",
+		"daytime": 0,
+		"description": "Capodanno"
+	}, {
+		"id": 4,
+		"date": "2019-04-22T12:00:00.000Z",
+		"daytime": 0,
+		"description": "Pasquetta"
+	}, {
+		"id": 5,
+		"date": "2018-05-03T12:00:00.000Z",
+		"daytime": 2,
+		"description": "Patrono"
+	}]
 }

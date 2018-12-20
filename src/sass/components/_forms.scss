@@ -52,12 +52,24 @@
 		margin-bottom: 30px;
 		padding: 15px;
 		color: #999999;
+		font-size: 18px;
+		font-weight: 400;
+		border-radius: 0;
+		outline: 0;
+		appearance: none;
 		cursor: pointer;
 		transition: all ease-in-out 350ms;
 
 		&::placeholder {
 			color: #999999;
+			font-size: 18px;
+			font-weight: 400;
 		}
+
+		&.ng-not-empty {
+			color: #28292b;
+		}
+
 	}
 
 	.required {
@@ -108,6 +120,24 @@
 
 }
 
+.form-group-select {
+	position: relative;
+
+	.form-control {
+		padding-right: 40px;
+	}
+
+	&:after {
+		content: 'h';
+		font-family: 'Scavolini';
+		display: block;
+		position: absolute;
+		bottom: 16px;
+		right: 11px;
+		color: #28292b;
+	}
+}
+
 .form-group-cta {
 	display: flex;
 	flex-direction: row;
@@ -156,6 +186,7 @@
 		min-width: calc(100% - 110px);
 		flex: 1 0 calc(100% - 110px);
 	}
+
 }
 
 .form-group-action {
@@ -191,6 +222,15 @@
 	display: flex;
 	justify-content: space-between;
 	max-width: calc(100vw - 30px);
+
+
+	@include media-breakpoint-up(lg) {
+		.form-group {
+			.form-control {
+				margin: 0;
+			}
+		}
+	}
 
 	@include media-breakpoint-down(md) {
 		display: block;

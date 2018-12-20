@@ -34,6 +34,38 @@
 
 }
 
+.nav-store {
+	display: flex;
+	justify-content: flex-end;
+
+	a {
+		display: inline-flex;
+		height: 80px;
+		vertical-align: middle;
+		align-items: center;
+		padding: 0 15px;
+		color: #fff;
+		text-decoration: none;
+	}
+
+	li {
+
+		&:hover,
+		&:active,
+		&.active {
+			a {
+				background: #ac0016;
+				color: white;
+			}
+		}
+	}
+
+	li+li {
+		margin-left: 30px;
+	}
+
+}
+
 .nav-select {
 	flex-direction: column;
 	border-top: 1px solid #888888;

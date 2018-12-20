@@ -72,6 +72,30 @@ button,
 	}
 }
 
+.btn-store {
+	color: #ffffff;
+	font-size: 11px;
+	font-weight: 400;
+
+	span {
+		text-transform: uppercase;
+	}
+
+	i {
+		font-size: 22px;
+		margin-right: 10px;
+		vertical-align: middle;
+
+		&:before {
+			vertical-align: text-top;
+		}
+	}
+
+	&:hover {
+		color: rgba(#ffffff, 0.5);
+	}
+}
+
 .btn-primary {
 	display: inline-block;
 	min-width: 290px;
@@ -257,6 +281,16 @@ button,
 	cursor: auto;
 }
 
+.btn-delete {
+	color: #c00019;
+	font-size: 18px;
+	font-weight: 400;
+	line-height: 24px;
+
+	&:hover {
+		color: rgba(#c00019, 0.5);
+	}
+}
 
 .btn-block {
 	display: block;
